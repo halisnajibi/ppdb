@@ -190,13 +190,13 @@ $peg    = mysqli_fetch_array($tampilPeg);
                 <i class="material-icons opacity-10">weekend</i>
               </div>
               <div class="text-end pt-1">
-                <p class="text-sm mb-0 text-capitalize">Today's Money</p>
-                <h4 class="mb-0">$53k</h4>
+                <p class="text-sm mb-0 text-capitalize">Status</p>
+                <h4 class="mb-0">Regestrasi</h4>
               </div>
             </div>
             <hr class="dark horizontal my-0">
             <div class="card-footer p-3">
-              <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+55% </span>than lask week</p>
+              <p class="mb-0"><span class="text-success text-sm font-weight-bolder"><?php echo $peg["statusreg"] ?></span></p>
             </div>
           </div>
         </div>
@@ -207,13 +207,13 @@ $peg    = mysqli_fetch_array($tampilPeg);
                 <i class="material-icons opacity-10">person</i>
               </div>
               <div class="text-end pt-1">
-                <p class="text-sm mb-0 text-capitalize">Today's Users</p>
-                <h4 class="mb-0">2,300</h4>
+                <p class="text-sm mb-0 text-capitalize">Status</p>
+                <h4 class="mb-0">Hasil Tes</h4>
               </div>
             </div>
             <hr class="dark horizontal my-0">
             <div class="card-footer p-3">
-              <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+3% </span>than lask month</p>
+              <p class="mb-0"><span class="text-success text-sm font-weight-bolder"><?php echo $peg["statustes"] ?></span></p>
             </div>
           </div>
         </div>
@@ -224,13 +224,13 @@ $peg    = mysqli_fetch_array($tampilPeg);
                 <i class="material-icons opacity-10">person</i>
               </div>
               <div class="text-end pt-1">
-                <p class="text-sm mb-0 text-capitalize">New Clients</p>
-                <h4 class="mb-0">3,462</h4>
+                <p class="text-sm mb-0 text-capitalize">Status</p>
+                <h4 class="mb-0">Daftar Ulang</h4>
               </div>
             </div>
             <hr class="dark horizontal my-0">
             <div class="card-footer p-3">
-              <p class="mb-0"><span class="text-danger text-sm font-weight-bolder">-2%</span> than yesterday</p>
+              <p class="mb-0"><span class="text-success text-sm font-weight-bolder"><?php echo $peg["statusdaftarulang"] ?></span></p>
             </div>
           </div>
         </div>
@@ -241,13 +241,13 @@ $peg    = mysqli_fetch_array($tampilPeg);
                 <i class="material-icons opacity-10">weekend</i>
               </div>
               <div class="text-end pt-1">
-                <p class="text-sm mb-0 text-capitalize">Sales</p>
-                <h4 class="mb-0">$103,430</h4>
+                <p class="text-sm mb-0 text-capitalize">Status</p>
+                <h4 class="mb-0">Kelulusan</h4>
               </div>
             </div>
             <hr class="dark horizontal my-0">
             <div class="card-footer p-3">
-              <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+5% </span>than yesterday</p>
+              <p class="mb-0"><span class="text-success text-sm font-weight-bolder"><?php echo $peg["statusakhir"] ?></span></p>
             </div>
           </div>
         </div>
@@ -271,7 +271,7 @@ $peg    = mysqli_fetch_array($tampilPeg);
                   <td>
                     <div class="d-flex px-2 py-1">
                       <div>
-                        <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user1">
+                        <img src="assets/img/icondefault.png" class="avatar avatar-sm me-3 border-radius-lg" alt="user1">
                       </div>
                       <div class="d-flex flex-column justify-content-center">
                         <h6 class="mb-0 text-sm"> <?php echo $peg["namasiswa"] ?></h6>

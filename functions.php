@@ -34,7 +34,7 @@ function reg($pos)
   // sql
   $query = "INSERT INTO tbl_siswa
 VALUES
-('','$nopen','$nama','$nisn',null,'$telpon','$sekolah','$nilai',1,null,'$tgl_daftar',null,null,null,null,null,null,null,null,null,null,null,null)
+('','$nopen','$nama','$nisn',null,'$telpon','$sekolah','$nilai',1,'berhasil','$tgl_daftar',null,'belum',null,null,null,'belum',null,null,'belum',null,null,null)
 ";
   mysqli_query($conn, $query);
   return mysqli_affected_rows($conn);
