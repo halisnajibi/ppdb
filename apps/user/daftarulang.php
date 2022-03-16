@@ -5,7 +5,7 @@ session_start();
 if ($_SESSION['status'] != "login") {
   header("location:apps/login/login.php");
 }
-require "functions.php";
+require "../../functions.php";
 $tampilPeg    = mysqli_query($conn, "SELECT * FROM tbl_siswa WHERE nopen='$_SESSION[nopen]'");
 $peg    = mysqli_fetch_array($tampilPeg);
 ?>
@@ -23,16 +23,16 @@ $peg    = mysqli_fetch_array($tampilPeg);
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
   <!-- Nucleo Icons -->
-  <link href="assets/css/nucleo-icons.css" rel="stylesheet" />
-  <link href="assets/css/nucleo-svg.css" rel="stylesheet" />
+  <link href="../../assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="../../assets/css/nucleo-svg.css" rel="stylesheet" />
   <!-- Font Awesome Icons -->
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
   <!-- Material Icons -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
   <!-- CSS Files -->
-  <link id="pagestyle" href="assets/css/material-dashboard.css?v=3.0.0" rel="stylesheet" />
+  <link id="pagestyle" href="../../assets/css/material-dashboard.css?v=3.0.0" rel="stylesheet" />
   <!-- css me -->
-  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="../../assets/css/style.css">
 
 </head>
 
@@ -87,7 +87,7 @@ $peg    = mysqli_fetch_array($tampilPeg);
               <li class="nav-item d-flex align-items-center">
                 <a href="javascript:;" class="nav-link text-body font-weight-bold px-0">
                   <a href="tes.php"><i class="fa fa-user me-sm-1"></i></a>
-                  <span class="d-sm-inline d-none"><a href="apps/login/logout.php">Log Out</a> </span>
+                  <span class="d-sm-inline d-none"><a href="../../apps/login/logout.php">Log Out</a> </span>
                 </a>
               </li>
               <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
@@ -183,179 +183,49 @@ $peg    = mysqli_fetch_array($tampilPeg);
     </nav>
     <!-- End Navbar -->
     <div class="container-fluid py-4">
-      <div class="row">
-        <p>selamat datang <?php echo $peg["namasiswa"] ?> </p>
-        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-          <div class="card">
-            <div class="card-header p-3 pt-2">
-              <div class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
-                <i class="material-icons opacity-10">weekend</i>
-              </div>
-              <div class="text-end pt-1">
-                <p class="text-sm mb-0 text-capitalize">Status</p>
-                <h4 class="mb-0">Regestrasi</h4>
-              </div>
-            </div>
-            <hr class="dark horizontal my-0">
-            <div class="card-footer p-3">
-              <?php if ($peg["statusreg"] == 'berhasil') {
-              ?>
-                <p class="mb-0"><span class="text-success text-sm font-weight-bolder"><?php echo $peg["statusreg"] ?></span></p>
-              <?php
-              } else {
-              ?>
-                <p class="mb-0"><span class="non text-sm font-weight-bolder" style="color:red;"><?php echo $peg["statusreg"] ?></span></p>
-              <?php } ?>
-            </div>
-          </div>
+      <form role="form" action="" method="post">
+        <div class="input-group input-group-outline mb-3">
+          <input type="text" class="form-control" name="nama" placeholder="Nama" autocomplete="off" value="<?php echo $peg['namasiswa'] ?>" readonly>
         </div>
-        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-          <?php if ($peg["statustes"] == 'lulus') {
-          ?>
-            <div class="card">
-              <div class="card-header p-3 pt-2">
-                <div class="icon icon-lg icon-shape bg-gradient-primary shadow-primary text-center border-radius-xl mt-n4 position-absolute">
-                  <i class="material-icons opacity-10">person</i>
-                </div>
-                <div class="text-end pt-1">
-                  <p class="text-sm mb-0 text-capitalize">Status</p>
-                  <h4 class="mb-0">Hasil Tes</h4>
-                </div>
-              </div>
-              <hr class="dark horizontal my-0">
-              <div class="card-footer p-3">
-                <p class="mb-0"><span class="text-success text-sm font-weight-bolder"><?php echo $peg["statustes"] ?></span></p>
-              </div>
-            </div>
+        <div class="input-group input-group-outline mb-3">
+          <input type="text" class="form-control" name="ayah" placeholder="Nama Ayah" autocomplete="off">
         </div>
-        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-          <div class="card">
-            <div class="card-header p-3 pt-2">
-              <div class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
-                <i class="material-icons opacity-10">person</i>
-              </div>
-              <div class="text-end pt-1">
-                <p class="text-sm mb-0 text-capitalize">Status</p>
-                <h4 class="mb-0">Daftar Ulang</h4>
-              </div>
-            </div>
-            <hr class="dark horizontal my-0">
-            <div class="card-footer p-3">
-              <p class="mb-0"><span class="text-success text-sm font-weight-bolder"><?php echo $peg["statusdaftarulang"] ?></span></p>
-            </div>
-          </div>
+        <div class="input-group input-group-outline mb-3">
+          <input type="text" class="form-control" name="ibu" placeholder="Nama Ibu" autocomplete="off">
         </div>
-        <div class="col-xl-3 col-sm-6">
-          <div class="card">
-            <div class="card-header p-3 pt-2">
-              <div class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 position-absolute">
-                <i class="material-icons opacity-10">weekend</i>
-              </div>
-              <div class="text-end pt-1">
-                <p class="text-sm mb-0 text-capitalize">Status</p>
-                <h4 class="mb-0">Kelulusan</h4>
-              </div>
-            </div>
-            <hr class="dark horizontal my-0">
-            <div class="card-footer p-3">
-              <p class="mb-0"><span class="text-success text-sm font-weight-bolder"><?php echo $peg["statusakhir"] ?></span></p>
-            </div>
-          </div>
+        <div class="input-group input-group-outline mb-3">
+          <input type="text" class="form-control" name="alamatortu" placeholder="Alamat Orang Tua" autocomplete="off">
         </div>
-      </div>
-    <?php
-          } else {
-    ?>
-      <div class="card">
-        <div class="card-header p-3 pt-2">
-          <div class="icon icon-lg icon-shape bg-gradient-primary shadow-primary text-center border-radius-xl mt-n4 position-absolute">
-            <i class="material-icons opacity-10">person</i>
-          </div>
-          <div class="text-end pt-1">
-            <p class="text-sm mb-0 text-capitalize">Status</p>
-            <h4 class="mb-0">Hasil Tes</h4>
-          </div>
+        <div class="input-group input-group-outline mb-3">
+          <input type="text" class="form-control" name="penghasilan" placeholder="Penghasilan Orang Tua" autocomplete="off">
         </div>
-        <hr class="dark horizontal my-0">
-        <div class="card-footer p-3">
-          <p class="mb-0"><span class="non text-sm font-weight-bolder"><?php echo $peg["statustes"] ?></span> </p>
+        <div class="input-group input-group-outline mb-3">
+          <label class="upload" >Upload Berkas :</label><span class="max">Max 5Mb</span>
+          <input type="file" name="upload" class="form-control">
         </div>
-      </div>
+        <div class="text-center">
+          <button type="submit" class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0" name="simpan">Sign Up</button>
+        </div>
+      </form>
     </div>
-  <?php } ?>
-  <div class="row">
-    <?php if ($peg["statustes"] == 'lulus') { ?>
-      <p class="lulus">Selamat anda bisa melanjutkan ketahap berikutnya karena di nyatakan lulus tes..</p>
-      <p class="lulus">Silahkan daftar ulang pada link ini <a href="apps/user/daftarulang.php">daftar</a>Sebelum daftar ulang silahkan baca informasi di bagian Informasi</p>
-    <?php } else { ?>
-      <p class="tidak_lulus">Mohon maaf anda tidak bisa melanjutkan ketahap berikutnya karena di nyatakan tidak lulus..</p>
-    <?php } ?>
-    <div class="card-body px-0 pb-2">
-      <div class="table-responsive p-0">
-        <table class="table align-items-center mb-0">
-          <thead>
-            <tr>
-              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama</th>
-              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">No.Pendaftaran</th>
-              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nisn</th>
-              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
-              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Asal Sekolah</th>
-              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Telepon</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <div class="d-flex px-2 py-1">
-                  <div>
-                    <img src="assets/img/icondefault.png" class="avatar avatar-sm me-3 border-radius-lg" alt="user1">
-                  </div>
-                  <div class="d-flex flex-column justify-content-center">
-                    <h6 class="mb-0 text-sm"> <?php echo $peg["namasiswa"] ?></h6>
-                  </div>
-                </div>
-              </td>
-              <td>
-                <p class="text-xs font-weight-bold mb-0"> <?php echo $peg["nopen"] ?></p>
-              </td>
+    <footer class="footer py-4  ">
+      <div class="container-fluid">
+        <div class="row align-items-center justify-content-lg-between">
+          <div class="col-lg-6 mb-lg-0 mb-4">
+            <div class="copyright text-center text-sm text-muted text-lg-start">
+              © <script>
+                document.write(new Date().getFullYear())
+              </script>,
+              made with <i class="fa fa-heart"></i> by
+              <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Halis Najibi</a>
 
-              <td class="align-middle text-center">
-                <span class="text-secondary text-xs font-weight-bold"> <?php echo $peg["nisn"] ?></span>
-              </td>
-              <td class="align-middle text-center text-sm">
-                <span class="badge badge-sm bg-gradient-success">Online</span>
-              </td>
-              <td>
-                <p class="text-xs font-weight-bold mb-0"> <?php echo $peg["asalsekolah"] ?></p>
-              </td>
-              <td>
-                <p class="text-xs font-weight-bold mb-0"> <?php echo $peg["telpon"] ?></p>
-              </td>
-
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-  </div>
-  <footer class="footer py-4  ">
-    <div class="container-fluid">
-      <div class="row align-items-center justify-content-lg-between">
-        <div class="col-lg-6 mb-lg-0 mb-4">
-          <div class="copyright text-center text-sm text-muted text-lg-start">
-            © <script>
-              document.write(new Date().getFullYear())
-            </script>,
-            made with <i class="fa fa-heart"></i> by
-            <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Halis Najibi</a>
-
+            </div>
           </div>
-        </div>
 
+        </div>
       </div>
+    </footer>
     </div>
-  </footer>
-  </div>
   </main>
   <div class="fixed-plugin">
     <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
@@ -683,7 +553,7 @@ $peg    = mysqli_fetch_array($tampilPeg);
   <!-- Github buttons -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="assets/js/material-dashboard.min.js?v=3.0.0"></script>
+  <script src="../../assets/js/material-dashboard.min.js?v=3.0.0"></script>
 
 </body>
 

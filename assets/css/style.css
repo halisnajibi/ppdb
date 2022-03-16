@@ -1,0 +1,31 @@
+th{
+  color: black !important;
+}
+
+.non{
+  color: red;
+}
+
+.tidak_lulus{
+  font-size: 16px;
+  font-weight: bold;
+  color: red;
+  margin-top: 10px;
+}
+
+.lulus{
+  font-size: 16px;
+  font-weight: bold;
+  color: #52AC56;
+  margin-top: 10px;
+}
+
+.upload{
+  margin-right: 10px;
+}
+
+.max{
+  font-size: 15px;
+  color: red;
+  margin-right: 5px;
+}
