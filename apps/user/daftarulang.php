@@ -8,6 +8,26 @@ if ($_SESSION['status'] != "login") {
 require "../../functions.php";
 $tampilPeg    = mysqli_query($conn, "SELECT * FROM tbl_siswa WHERE nopen='$_SESSION[nopen]'");
 $peg    = mysqli_fetch_array($tampilPeg);
+
+
+//simpan daftar ulang
+if (isset($_POST["simpan"])) {
+  if (daftar_ulang($_POST) > 0) {
+    echo "
+        <script>
+                alert('Berhasil Daftar Ulang');
+                  document.location.href='../../index.php';
+         </script>
+            ";
+  } else {
+    echo "
+        <script>
+                alert('gagal Daftar Ulang);
+         </script>
+            ";
+  
+  }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -183,7 +203,9 @@ $peg    = mysqli_fetch_array($tampilPeg);
     </nav>
     <!-- End Navbar -->
     <div class="container-fluid py-4">
-      <form role="form" action="" method="post">
+      <form role="form" action="" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="nisn" value="<?php echo $peg['nisn'] ?>">
+        <input type="hidden" name="tanggal">
         <div class="input-group input-group-outline mb-3">
           <input type="text" class="form-control" name="nama" placeholder="Nama" autocomplete="off" value="<?php echo $peg['namasiswa'] ?>" readonly>
         </div>
@@ -200,11 +222,11 @@ $peg    = mysqli_fetch_array($tampilPeg);
           <input type="text" class="form-control" name="penghasilan" placeholder="Penghasilan Orang Tua" autocomplete="off">
         </div>
         <div class="input-group input-group-outline mb-3">
-          <label class="upload" >Upload Berkas :</label><span class="max">Max 5Mb</span>
+          <label class="upload">Upload Berkas :</label><span class="max">Max 5Mb</span>
           <input type="file" name="upload" class="form-control">
         </div>
         <div class="text-center">
-          <button type="submit" class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0" name="simpan">Sign Up</button>
+          <button type="submit" class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0" name="simpan">Simpan</button>
         </div>
       </form>
     </div>

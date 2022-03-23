@@ -7,17 +7,19 @@ th{
 }
 
 .tidak_lulus{
-  font-size: 16px;
+  font-size: 14px;
   font-weight: bold;
   color: red;
   margin-top: 10px;
+  font-style: italic;
 }
 
 .lulus{
-  font-size: 16px;
+  font-size: 14px;
   font-weight: bold;
   color: #52AC56;
   margin-top: 10px;
+  font-style: italic;
 }
 
 .upload{
@@ -28,4 +30,8 @@ th{
   font-size: 15px;
   color: red;
   margin-right: 5px;
+}
+
+.daftar_ulang{
+  text-decoration:double;
 }

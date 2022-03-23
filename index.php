@@ -241,7 +241,11 @@ $peg    = mysqli_fetch_array($tampilPeg);
             </div>
             <hr class="dark horizontal my-0">
             <div class="card-footer p-3">
-              <p class="mb-0"><span class="text-success text-sm font-weight-bolder"><?php echo $peg["statusdaftarulang"] ?></span></p>
+              <?php if ($peg["statusdaftarulang"] == 'berhasil') { ?>
+                <p class="mb-0"><span class="text-success text-sm font-weight-bolder"><?php echo $peg["statusdaftarulang"] ?></span></p>
+              <?php } else { ?>
+                <p class="mb-0"><span class="non text-sm font-weight-bolder"><?php echo $peg["statusdaftarulang"] ?></span></p>
+              <?php } ?>
             </div>
           </div>
         </div>
@@ -258,7 +262,11 @@ $peg    = mysqli_fetch_array($tampilPeg);
             </div>
             <hr class="dark horizontal my-0">
             <div class="card-footer p-3">
-              <p class="mb-0"><span class="text-success text-sm font-weight-bolder"><?php echo $peg["statusakhir"] ?></span></p>
+              <?php if ($peg["statusakhir"] == 'lulus') { ?>
+                <p class="mb-0"><span class="text-success text-sm font-weight-bolder"><?php echo $peg["statusakhir"] ?></span></p>
+              <?php } else { ?>
+                <p class="mb-0"><span class="non text-sm font-weight-bolder"><?php echo $peg["statusakhir"] ?></span></p>
+              <?php } ?>
             </div>
           </div>
         </div>
@@ -284,12 +292,24 @@ $peg    = mysqli_fetch_array($tampilPeg);
     </div>
   <?php } ?>
   <div class="row">
-    <?php if ($peg["statustes"] == 'lulus') { ?>
-      <p class="lulus">Selamat anda bisa melanjutkan ketahap berikutnya karena di nyatakan lulus tes..</p>
-      <p class="lulus">Silahkan daftar ulang pada link ini <a href="apps/user/daftarulang.php">daftar</a>Sebelum daftar ulang silahkan baca informasi di bagian Informasi</p>
+    <?php if ($peg["statusakhir"] == 'lulus') { ?>
+      <p class="lulus">Selamat anda di nyatakan lulus di kelas..</p>
+    <?php }else{ ?>
+    <?php if ($peg["statusdaftarulang"] == 'berhasil') { ?>
+      <p class="lulus">Selamat daftar ulang anda berhasil silahkan tunggu hasil akhir..</p>
     <?php } else { ?>
-      <p class="tidak_lulus">Mohon maaf anda tidak bisa melanjutkan ketahap berikutnya karena di nyatakan tidak lulus..</p>
+      <?php if ($peg["statustes"] == 'lulus') { ?>
+
+        <p class="lulus">Selamat anda bisa melanjutkan ketahap berikutnya karena di nyatakan lulus tes..</p>
+        <p class="lulus">Silahkan daftar ulang pada link ini <a href="apps/user/daftarulang.php?nisn=<?php echo $peg['nisn'] ?>" class="daftar_ulang">daftar</a> Sebelum daftar ulang silahkan baca informasi di bagian Informasi</p>
+
+      <?php } else { ?>
+        <p class="tidak_lulus">Mohon maaf anda tidak bisa melanjutkan ketahap berikutnya karena di nyatakan tidak lulus tes..</p>
+      <?php } ?>
     <?php } ?>
+    <?php } ?>
+
+
     <div class="card-body px-0 pb-2">
       <div class="table-responsive p-0">
         <table class="table align-items-center mb-0">
