@@ -5,7 +5,7 @@ if (isset($_POST["simpan"])) {
     echo "
         <script>
                 alert('Berhasil Regestrasi');
-                  document.location.href='../user/infoakun.php?nisn=$_POST[nisn]';
+                  document.location.href='../user/infoakun.php?n=$_POST[nisn]';
          </script>
             ";
   } else {

@@ -1,6 +1,6 @@
 <?php
 require "../../functions.php";
-$nisn = $_GET["nisn"];
+$nisn = $_GET["n"];
 $tampil = tabel("SELECT * FROM tbl_siswa WHERE nisn=$nisn")[0];
 ?>
 
@@ -62,8 +62,8 @@ $tampil = tabel("SELECT * FROM tbl_siswa WHERE nisn=$nisn")[0];
               </div>
               <div class="card-body">
                 <p class="text-black">Pendaftaran anda berhasil ingat informasi akun anda dibawah ini agar dapat login</p>
-                <p>No.Pendaftaran :<?php echo $tampil["nopen"] ?> </p>
-                <p>Telpon :<?php echo $tampil["telpon"] ?> </p>
+                <p>No.Pendaftaran :<?php echo $tampil["nopen"] ;?> </p>
+                <p>Telpon :<?php echo $tampil["telpon"] ;?> </p>
                 <p>Gunakan data di atas sebagai username dan password untuk <a href="../login/login.php">login</a></p>
                 <!-- <form role="form" class="text-start">
                   <div class="input-group input-group-outline my-3">

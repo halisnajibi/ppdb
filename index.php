@@ -210,8 +210,7 @@ $peg    = mysqli_fetch_array($tampilPeg);
           </div>
         </div>
         <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-          <?php if ($peg["statustes"] == 'lulus') {
-          ?>
+          <?php if ($peg["statustes"] == 'gagal') { ?>
             <div class="card">
               <div class="card-header p-3 pt-2">
                 <div class="icon icon-lg icon-shape bg-gradient-primary shadow-primary text-center border-radius-xl mt-n4 position-absolute">
@@ -224,7 +223,31 @@ $peg    = mysqli_fetch_array($tampilPeg);
               </div>
               <hr class="dark horizontal my-0">
               <div class="card-footer p-3">
-                <p class="mb-0"><span class="text-success text-sm font-weight-bolder"><?php echo $peg["statustes"] ?></span></p>
+                <?php if ($peg["statustes"] == 'lulus') { ?>
+                  <p class="mb-0"><span class="text-success text-sm font-weight-bolder"><?php echo $peg["statustes"] ?></span></p>
+                <?php } else { ?>
+                  <p class="mb-0"><span class="non text-sm font-weight-bolder"><?php echo $peg["statustes"] ?></span></p>
+                <?php }  ?>
+              </div>
+            </div>
+          <?php } else { ?>
+            <div class="card">
+              <div class="card-header p-3 pt-2">
+                <div class="icon icon-lg icon-shape bg-gradient-primary shadow-primary text-center border-radius-xl mt-n4 position-absolute">
+                  <i class="material-icons opacity-10">person</i>
+                </div>
+                <div class="text-end pt-1">
+                  <p class="text-sm mb-0 text-capitalize">Status</p>
+                  <h4 class="mb-0">Hasil Tes</h4>
+                </div>
+              </div>
+              <hr class="dark horizontal my-0">
+              <div class="card-footer p-3">
+                <?php if ($peg["statustes"] == 'lulus') { ?>
+                  <p class="mb-0"><span class="text-success text-sm font-weight-bolder"><?php echo $peg["statustes"] ?></span></p>
+                <?php } else { ?>
+                  <p class="mb-0"><span class="non text-sm font-weight-bolder"><?php echo $peg["statustes"] ?></span></p>
+                <?php }  ?>
               </div>
             </div>
         </div>
@@ -267,115 +290,100 @@ $peg    = mysqli_fetch_array($tampilPeg);
               <?php } else { ?>
                 <p class="mb-0"><span class="non text-sm font-weight-bolder"><?php echo $peg["statusakhir"] ?></span></p>
               <?php } ?>
+
             </div>
           </div>
+        <?php } ?>
         </div>
       </div>
-    <?php
-          } else {
-    ?>
-      <div class="card">
-        <div class="card-header p-3 pt-2">
-          <div class="icon icon-lg icon-shape bg-gradient-primary shadow-primary text-center border-radius-xl mt-n4 position-absolute">
-            <i class="material-icons opacity-10">person</i>
-          </div>
-          <div class="text-end pt-1">
-            <p class="text-sm mb-0 text-capitalize">Status</p>
-            <h4 class="mb-0">Hasil Tes</h4>
-          </div>
-        </div>
-        <hr class="dark horizontal my-0">
-        <div class="card-footer p-3">
-          <p class="mb-0"><span class="non text-sm font-weight-bolder"><?php echo $peg["statustes"] ?></span> </p>
-        </div>
+      <div class="row">
+        <?php if ($peg["statustes"] == 'gagal') { ?>
+          <p class="tidak_lulus">Mohon maaf anda tidak bisa melanjutkan ketahap berikutnya karena di nyatakan tidak lulus tes..</p>
+        <?php } else { ?>
+          <?php if ($peg["statusdaftarulang"] == 'belum' && $peg["statusakhir"] == 'belum') { ?>
+            <?php if ($peg["statusreg"] == 'berhasil' && $peg["statustes"] == 'belum') { ?>
+              <p class="lulus">Silahkan <a href="" target="_blank">download</a> kartu ujian</p>
+            <?php } else { ?>
+              <p class="lulus">Selamat anda bisa melanjutkan ketahap berikutnya karena di nyatakan lulus tes..</p>
+              <p class="lulus">Silahkan daftar ulang pada link ini <a href="apps/user/daftarulang.php?nisn=<?php echo $peg['nisn'] ?>" class="daftar_ulang">daftar</a> Sebelum daftar ulang silahkan baca informasi di bagian Informasi</p>
+            <?php } ?>
+          <?php } else if ($peg["statusdaftarulang"] == 'berhasil' && $peg["statusakhir"] == 'belum') { ?>
+            <p class="lulus">Selamat daftar ulang anda berhasil silahkan tunggu hasil akhir..</p>
+          <?php } else if ($peg["statusdaftarulang"] == 'berhasil' && $peg["statusakhir"] == 'lulus') { ?>
+            <p class="lulus">Selamat anda di nyatakan lulus di SMA Harapan Banua..</p>
+            <p class="lulus">Silahkan datang kesekolahan untuk konfirmasi dan membayar daftar ulang</p>
+          <?php } ?>
+        <?php } ?>
+
       </div>
-    </div>
-  <?php } ?>
-  <div class="row">
-    <?php if ($peg["statusakhir"] == 'lulus') { ?>
-      <p class="lulus">Selamat anda di nyatakan lulus di kelas..</p>
-    <?php }else{ ?>
-    <?php if ($peg["statusdaftarulang"] == 'berhasil') { ?>
-      <p class="lulus">Selamat daftar ulang anda berhasil silahkan tunggu hasil akhir..</p>
-    <?php } else { ?>
-      <?php if ($peg["statustes"] == 'lulus') { ?>
-
-        <p class="lulus">Selamat anda bisa melanjutkan ketahap berikutnya karena di nyatakan lulus tes..</p>
-        <p class="lulus">Silahkan daftar ulang pada link ini <a href="apps/user/daftarulang.php?nisn=<?php echo $peg['nisn'] ?>" class="daftar_ulang">daftar</a> Sebelum daftar ulang silahkan baca informasi di bagian Informasi</p>
-
-      <?php } else { ?>
-        <p class="tidak_lulus">Mohon maaf anda tidak bisa melanjutkan ketahap berikutnya karena di nyatakan tidak lulus tes..</p>
-      <?php } ?>
-    <?php } ?>
-    <?php } ?>
 
 
-    <div class="card-body px-0 pb-2">
-      <div class="table-responsive p-0">
-        <table class="table align-items-center mb-0">
-          <thead>
-            <tr>
-              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama</th>
-              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">No.Pendaftaran</th>
-              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nisn</th>
-              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
-              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Asal Sekolah</th>
-              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Telepon</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <div class="d-flex px-2 py-1">
-                  <div>
-                    <img src="assets/img/icondefault.png" class="avatar avatar-sm me-3 border-radius-lg" alt="user1">
+      <div class="card-body px-0 pb-2">
+        <div class="table-responsive p-0">
+          <table class="table align-items-center mb-0">
+            <thead>
+              <tr>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama</th>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">No.Pendaftaran</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nisn</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Asal Sekolah</th>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Telepon</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div class="d-flex px-2 py-1">
+                    <div>
+                      <img src="assets/img/icondefault.png" class="avatar avatar-sm me-3 border-radius-lg" alt="user1">
+                    </div>
+                    <div class="d-flex flex-column justify-content-center">
+                      <h6 class="mb-0 text-sm"> <?php echo $peg["namasiswa"] ?></h6>
+                    </div>
                   </div>
-                  <div class="d-flex flex-column justify-content-center">
-                    <h6 class="mb-0 text-sm"> <?php echo $peg["namasiswa"] ?></h6>
-                  </div>
-                </div>
-              </td>
-              <td>
-                <p class="text-xs font-weight-bold mb-0"> <?php echo $peg["nopen"] ?></p>
-              </td>
+                </td>
+                <td>
+                  <p class="text-xs font-weight-bold mb-0"> <?php echo $peg["nopen"] ?></p>
+                </td>
 
-              <td class="align-middle text-center">
-                <span class="text-secondary text-xs font-weight-bold"> <?php echo $peg["nisn"] ?></span>
-              </td>
-              <td class="align-middle text-center text-sm">
-                <span class="badge badge-sm bg-gradient-success">Online</span>
-              </td>
-              <td>
-                <p class="text-xs font-weight-bold mb-0"> <?php echo $peg["asalsekolah"] ?></p>
-              </td>
-              <td>
-                <p class="text-xs font-weight-bold mb-0"> <?php echo $peg["telpon"] ?></p>
-              </td>
+                <td class="align-middle text-center">
+                  <span class="text-secondary text-xs font-weight-bold"> <?php echo $peg["nisn"] ?></span>
+                </td>
+                <td class="align-middle text-center text-sm">
+                  <span class="badge badge-sm bg-gradient-success">Online</span>
+                </td>
+                <td>
+                  <p class="text-xs font-weight-bold mb-0"> <?php echo $peg["asalsekolah"] ?></p>
+                </td>
+                <td>
+                  <p class="text-xs font-weight-bold mb-0"> <?php echo $peg["telpon"] ?></p>
+                </td>
 
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-  </div>
-  <footer class="footer py-4  ">
-    <div class="container-fluid">
-      <div class="row align-items-center justify-content-lg-between">
-        <div class="col-lg-6 mb-lg-0 mb-4">
-          <div class="copyright text-center text-sm text-muted text-lg-start">
-            © <script>
-              document.write(new Date().getFullYear())
-            </script>,
-            made with <i class="fa fa-heart"></i> by
-            <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Halis Najibi</a>
-
-          </div>
+            </tbody>
+          </table>
         </div>
-
       </div>
     </div>
-  </footer>
-  </div>
+    </div>
+    <footer class="footer py-4  ">
+      <div class="container-fluid">
+        <div class="row align-items-center justify-content-lg-between">
+          <div class="col-lg-6 mb-lg-0 mb-4">
+            <div class="copyright text-center text-sm text-muted text-lg-start">
+              © <script>
+                document.write(new Date().getFullYear())
+              </script>,
+              made with <i class="fa fa-heart"></i> by
+              <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Halis Najibi</a>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </footer>
+    </div>
   </main>
   <div class="fixed-plugin">
     <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
