@@ -20,6 +20,123 @@ function tabel($query)
   return $SemuaData;
 }
 
+//admin
+function update_siswa($pos){
+  global $conn;
+  $id=$pos["id"];
+  $nama=htmlspecialchars($pos["namasiswa"]);
+  $nopen=htmlspecialchars($pos["nopen"]);
+  $nisn=htmlspecialchars($pos["nisn"]);
+  $jk=htmlspecialchars($pos["jk"]);
+  $tmpt_lahir=htmlspecialchars($pos["tempat_lahir"]);
+  $tgl_lahir=htmlspecialchars($pos["tanggal_lahir"]);
+  $sekolah=htmlspecialchars($pos["sekolah"]);
+  $nilai=htmlspecialchars($pos["nilai"]);
+  $telpon=htmlspecialchars($pos["telpon"]);
+  $fotolama=htmlspecialchars($pos["fotolama"]) ;
+  //cek apakah user pilih gambar baru atau tidak
+ if($_FILES['foto_update']['error'] === 4){
+      $foto=$fotolama;
+ }else{
+     $foto=foto_update();
+}
+
+  $sql="UPDATE tbl_siswa SET
+        nopen='$nopen',
+        namasiswa='$nama',
+        nisn='$nisn',
+        jk='$jk',
+        telpon='$telpon',
+        asalsekolah='$sekolah',
+        nilaiakhir='$nilai',
+        foto='$foto',
+        tempat_lahir='$tmpt_lahir',
+        tanggal_lahir='$tgl_lahir'
+        WHERE id_siswa='$id'";
+
+  mysqli_query($conn, $sql);
+ return   mysqli_affected_rows($conn);
+}
+
+function foto_update()
+{
+  $namafiles = $_FILES['foto_update']['name'];
+  $ukuranfile = $_FILES['foto_update']['size'];
+  $error = $_FILES['foto_update']['error'];
+  $tmpname = $_FILES['foto_update']['tmp_name'];
+
+  //cek apakah tidak ada foto yang di uplod
+  if (
+    $error === 4
+  ) {
+    echo "
+        <script>
+            alert('pili gambar dulu');
+
+        </script>
+        ";
+    return false;
+  }
+  //cek apakah yang di uplod itu foto
+  $extensigambarvalid = ['jpg', 'jpeg', 'png'];
+  //mecah nama file
+  $extensigambar = explode('.', $namafiles);
+  //nagmbil nama file yang palng akhir(extensi) dan merubah nya jadi huruf kecil semua
+  $extensigambar = strtolower(end($extensigambar));
+  if (!in_array($extensigambar, $extensigambarvalid)) {
+    echo "
+            <script>
+            alert('yang di uplod bukan foto');
+            </script>";
+    return false;
+  }
+  //cek jika ukuran nya terlalu besar
+  if (
+    $ukuranfile > 5000000
+  ) {
+    echo "
+        <script>
+        alert('ukuran foto terlalu besar');
+        </script>";
+    return false;
+  }
+
+  //lulus pengecikan,foto siap di uplod
+  //genereate nama gambar baru
+  $namafilebaru = uniqid();
+  $namafilebaru .= '.';
+  $namafilebaru .= $extensigambar;
+  //nama folder relative sama file dimana di upload
+  move_uploaded_file($tmpname, '../../user/img/' . $namafilebaru);
+  return $namafilebaru;
+}
+
+function hapussiswa($id){
+  global $conn;
+  mysqli_query($conn,"DELETE FROM tbl_siswa WHERE id_siswa='$id'");
+  return mysqli_affected_rows($conn);
+}
+
+function update_orgtua($pos){
+  global $conn;
+  $id=$pos["id"];
+  $ayah=htmlspecialchars($pos["namaayah"]);
+  $ibu=htmlspecialchars($pos["namaibu"]);
+  $alamat=htmlspecialchars($pos["alamat"]);
+  $penghasilan=htmlspecialchars($pos["penghasilan"]);
+
+  $sql="UPDATE tbl_orangtua SET
+        nama_ayah='$ayah',
+        nama_ibu='$ibu',
+        alamat_orgtua='$alamat',
+        penghasilan='$penghasilan'
+        WHERE id_orgtua='$id'";
+
+  mysqli_query($conn,$sql);
+  return mysqli_affected_rows($conn);
+}
+//akhir admin
+
 
 //user
 
@@ -133,7 +250,6 @@ function uplod_berkas(){
         </script>";
     return false;
   }
-
   //lulus penegecikan,file siap di uplod
   //generate nama file baru
   $namafilebaru=uniqid();
