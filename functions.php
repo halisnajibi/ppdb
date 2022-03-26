@@ -34,7 +34,7 @@ function reg($pos)
   // sql
   $query = "INSERT INTO tbl_siswa
 VALUES
-('','$nopen','$nama','$nisn',null,'$telpon','$sekolah','$nilai','berhasil','$tgl_daftar',null,'belum',null,null,null,'belum',null,null,'belum',null,null,null)
+('','$nopen','$nama','$nisn',null,'$telpon','$sekolah','$nilai','berhasil','$tgl_daftar',null,'belum',null,null,null,'belum',null,null,'belum',null,null,null,null,null,null)
 ";
   mysqli_query($conn, $query);
   return mysqli_affected_rows($conn);
@@ -43,9 +43,8 @@ VALUES
 //daftar ulang
 function daftar_ulang($pos){
   global $conn;
+  $id=$pos["id_siswa"];
   $nisn=$pos["nisn"];
-  $tanggal=$pos["tanggal"];
-  $nama=htmlspecialchars($pos["nama"]);
   $ayah=htmlspecialchars($pos["ayah"]);
   $ibu=htmlspecialchars($pos["ibu"]);
   $alamat=htmlspecialchars($pos["alamatortu"]);
@@ -56,7 +55,7 @@ function daftar_ulang($pos){
   }
 
   $sql="INSERT INTO tbl_orangtua VALUES
-        ('','$nama','$ayah','$ibu','$alamat','$penghasilan')";
+        ('','$id','$ayah','$ibu','$alamat','$penghasilan')";
   $sql_berkas="UPDATE tbl_siswa SET
                uplod='$berkas',
                tgl_daftarulang=current_timestamp(),
@@ -65,6 +64,29 @@ function daftar_ulang($pos){
   mysqli_query($conn,$sql_berkas);
     mysqli_query($conn,$sql);
     return mysqli_affected_rows($conn);
+}
+
+//edit user
+function edit_user($pos)
+{
+  global $conn;
+  $nisn = $pos["nisn"];
+  $ttl = htmlspecialchars($pos["ttl"]);
+  $tgl = htmlspecialchars($pos["tgl_lahir"]);
+  $jk=htmlspecialchars($pos["jk"]);
+  $foto = foto();
+  if (!$foto) {
+    return false;
+  }
+
+  $sql = "UPDATE tbl_siswa SET
+  jk='$jk',
+              foto='$foto',
+               tempat_lahir='$ttl',
+               tanggal_lahir='$tgl'
+                WHERE nisn=$nisn";
+  mysqli_query($conn, $sql);
+  return mysqli_affected_rows($conn);
 }
 
 //uplod berkas
@@ -121,3 +143,64 @@ function uplod_berkas(){
   return $namafilebaru;
 }
 
+//upload foto
+function foto()
+{
+  $namafiles = $_FILES['upload_foto']['name'];
+  $ukuranfile = $_FILES['upload_foto']['size'];
+  $error = $_FILES['upload_foto']['error'];
+  $tmpname = $_FILES['upload_foto']['tmp_name'];
+
+  //cek apakah tidak ada foto yang di uplod
+  if ($error === 4
+  ) {
+    echo "
+        <script>
+            alert('pili gambar dulu');
+
+        </script>
+        ";
+    return false;
+  }
+  //cek apakah yang di uplod itu foto
+  $extensigambarvalid = ['jpg', 'jpeg', 'png'];
+  //mecah nama file
+  $extensigambar = explode('.', $namafiles);
+  //nagmbil nama file yang palng akhir(extensi) dan merubah nya jadi huruf kecil semua
+  $extensigambar = strtolower(end($extensigambar));
+  if (!in_array($extensigambar, $extensigambarvalid)) {
+    echo "
+            <script>
+            alert('yang di uplod bukan foto');
+            </script>";
+    return false;
+  }
+  //cek jika ukuran nya terlalu besar
+  if ($ukuranfile > 5000000
+  ) {
+    echo "
+        <script>
+        alert('ukuran foto terlalu besar');
+        </script>";
+    return false;
+  }
+
+  //lulus pengecikan,foto siap di uplod
+  //genereate nama gambar baru
+  $namafilebaru = uniqid();
+  $namafilebaru .= '.';
+  $namafilebaru .= $extensigambar;
+  //nama folder relative sama file tambahh data
+  move_uploaded_file($tmpname, 'img/' . $namafilebaru);
+  return $namafilebaru;
+}
+
+//tanggal indonesia
+function indotgl($tanggal)
+{
+  $tgl = substr($tanggal, 8, 2);
+  $bln = substr($tanggal, 5, 2);
+  $thn = substr($tanggal, 0, 4);
+  $tanggal = "$tgl-$bln-$thn";
+  return $tanggal;
+}

@@ -1,4 +1,10 @@
 <?php
+session_start();
+
+// cek apakah user telah login, jika belum login maka di alihkan ke halaman login
+if ($_SESSION['status'] != "login") {
+  header("location:login.php");
+}
 require "../../functions.php";
 if (isset($_POST["simpan"])) {
   if (reg($_POST) > 0) {
@@ -43,12 +49,11 @@ if (isset($_POST["simpan"])) {
   <!-- CSS Files -->
   <link id="pagestyle" href="../../assets/css/material-dashboard.css?v=3.0.1" rel="stylesheet" />
 
-  <!-- booostrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link rel="stylesheet" href="../../assets/css/style.css">
 
 </head>
 
-<body class="">
+<body>
   <main class="main-content  mt-0">
     <section>
       <div class="page-header min-vh-100">
@@ -81,6 +86,7 @@ if (isset($_POST["simpan"])) {
                     <div class="input-group input-group-outline mb-3">
                       <input type="text" class="form-control" name="nilai" placeholder="Nilai Akhir" autocomplete="off">
                     </div>
+
                     <div class="text-center">
                       <button type="submit" class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0" name="simpan">Sign Up</button>
                     </div>

@@ -3,7 +3,7 @@ session_start();
 
 // cek apakah user telah login, jika belum login maka di alihkan ke halaman login
 if ($_SESSION['status'] != "login") {
-  header("location:apps/login/login.php");
+  header("location:../login/login.php");
 }
 require "../../functions.php";
 $tampilPeg    = mysqli_query($conn, "SELECT * FROM tbl_siswa WHERE nopen='$_SESSION[nopen]'");
@@ -25,7 +25,6 @@ if (isset($_POST["simpan"])) {
                 alert('gagal Daftar Ulang);
          </script>
             ";
-  
   }
 }
 ?>
@@ -206,7 +205,9 @@ if (isset($_POST["simpan"])) {
       <form role="form" action="" method="post" enctype="multipart/form-data">
         <input type="hidden" name="nisn" value="<?php echo $peg['nisn'] ?>">
         <input type="hidden" name="tanggal">
+        <input type="hidden" name="id_siswa" value="<?php echo $peg['id_siswa'] ?>">
         <div class="input-group input-group-outline mb-3">
+
           <input type="text" class="form-control" name="nama" placeholder="Nama" autocomplete="off" value="<?php echo $peg['namasiswa'] ?>" readonly>
         </div>
         <div class="input-group input-group-outline mb-3">

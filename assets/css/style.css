@@ -35,3 +35,57 @@ th{
 .daftar_ulang{
   text-decoration:double;
 }
+
+/* cetak */
+
+.container-kartu{
+  font-size: 20px;
+}
+.img-kartu{
+  width: 120px;
+  padding-left: 60px;
+}
+.tes{
+  font-size: 23px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid black;
+}
+
+.nopen{
+  font-weight: bold;
+}
+
+footer{
+
+}
+.foter{
+ display: flex;
+ justify-content: flex-end;
+}
+
+.tulis{
+  flex-direction: column-reverse;
+  
+}
+
+.panitia{
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 40px;
+}
+
+.ttd{
+  margin-bottom: 40px;
+}
+
+.nama,.np{
+  font-weight: bold;
+}
+
+.nama{
+  margin-right: 50px;
+}
+
+#login{
+  background-image: url(../img/bg.jpg);
+}

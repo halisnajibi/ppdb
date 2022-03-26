@@ -9,15 +9,15 @@ require "../../functions.php";
 if (isset($_POST["login"])) {
   $username = $_POST["username"];
   $pass = $_POST["pass"];
-  
+
   //cek data apa sesaui sama db
   $query = mysqli_query($conn, "SELECT * FROM tbl_siswa WHERE nopen='$username' AND telpon='$pass'");
   //cek apakah ada data yang sesuai
   $cek = mysqli_num_rows($query);
   if ($cek > 0) {
     $panggil = mysqli_fetch_assoc($query);
-    $_SESSION["username"]=$username;
-    $_SESSION["pass"]=$pass;
+    $_SESSION["username"] = $username;
+    $_SESSION["pass"] = $pass;
     $_SESSION["nopen"] = $panggil["nopen"];
     $_SESSION["status"] = "login";
     // alihkan ke halaman dashboard user
@@ -50,13 +50,15 @@ if (isset($_POST["login"])) {
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
   <!-- CSS Files -->
   <link id="pagestyle" href="../../assets/css/material-dashboard.css?v=3.0.1" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../../assets/css/style.css">
 </head>
 
-<body class="bg-gray-200">
+<body id="login">
   <div class="container position-sticky z-index-sticky top-0">
   </div>
   <main class="main-content  mt-0">
-    <div class="page-header align-items-start min-vh-100" style="background-image: url('https://images.unsplash.com/photo-1497294815431-9365093b7331?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1950&q=80');">
+    <div class="page-header align-items-start min-vh-100" style="background-image: url('../assets/img/bg.jpg');">
       <span class="mask bg-gradient-dark opacity-6"></span>
       <div class="container my-auto">
         <div class="row">
@@ -65,23 +67,7 @@ if (isset($_POST["login"])) {
               <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                 <div class="bg-gradient-primary shadow-primary border-radius-lg py-3 pe-1">
                   <h4 class="text-white font-weight-bolder text-center mt-2 mb-0">Sign in</h4>
-                  <!-- <div class="row mt-3">
-                    <div class="col-2 text-center ms-auto">
-                      <a class="btn btn-link px-3" href="javascript:;">
-                        <i class="fa fa-facebook text-white text-lg"></i>
-                      </a>
-                    </div>
-                    <div class="col-2 text-center px-1">
-                      <a class="btn btn-link px-3" href="javascript:;">
-                        <i class="fa fa-github text-white text-lg"></i>
-                      </a>
-                    </div>
-                    <div class="col-2 text-center me-auto">
-                      <a class="btn btn-link px-3" href="javascript:;">
-                        <i class="fa fa-google text-white text-lg"></i>
-                      </a>
-                    </div>
-                  </div> -->
+                 
                 </div>
               </div>
               <div class="card-body">
@@ -105,10 +91,10 @@ if (isset($_POST["login"])) {
                   <div class="input-group input-group-outline mb-3">
                     <input type="password" class="form-control" name="pass" placeholder="Password" autocomplete="off">
                   </div>
-                  <div class="form-check form-switch d-flex align-items-center mb-3">
+                  <!-- <div class="form-check form-switch d-flex align-items-center mb-3">
                     <input class="form-check-input" type="checkbox" id="rememberMe">
                     <label class="form-check-label mb-0 ms-2" for="rememberMe">Remember me</label>
-                  </div>
+                  </div> -->
                   <div class="text-center">
                     <button type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2" name="login">Sign in</button>
                   </div>

@@ -6,16 +6,34 @@ if ($_SESSION['status'] != "login") {
   header("location:../login/login.php");
 }
 require "../../functions.php";
-$tampilPeg    = mysqli_query($conn, "SELECT * FROM tbl_siswa WHERE nopen='$_SESSION[nopen]'");
-$peg    = mysqli_fetch_array($tampilPeg);
+$nisn = $_GET["e"];
+$tampil = tabel("SELECT * FROM tbl_siswa WHERE nisn=$nisn")[0];
+
+if (isset($_POST["simpan"])) {
+  if (edit_user($_POST) > 0) {
+    echo "
+        <script>
+                alert('Berhasil');
+                  document.location.href='../../index.php';
+         </script>
+            ";
+  } else {
+    echo "
+        <script>
+                alert('gagal);
+         </script>
+            ";
+  }
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="../../assets/img/apple-icon.png">
   <!-- <link rel="icon" type="image/png" href="./assets/img/favicon.png"> -->
   <title>
     ayo sekolah
@@ -31,9 +49,6 @@ $peg    = mysqli_fetch_array($tampilPeg);
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
   <!-- CSS Files -->
   <link id="pagestyle" href="../../assets/css/material-dashboard.css?v=3.0.0" rel="stylesheet" />
-  <!-- css me -->
-  <link rel="stylesheet" href="../../assets/css/style.css">
-
 </head>
 
 <body class="g-sidenav-show  bg-gray-200">
@@ -54,11 +69,10 @@ $peg    = mysqli_fetch_array($tampilPeg);
               <i class="material-icons opacity-10">dashboard</i>
             </div>
             <span class="nav-link-text ms-1">Dashboard</span>
-
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white active bg-gradient-primary" href="index.php">
+          <a class="nav-link text-white " href="../../apps/user/index.php">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">table_view</i>
             </div>
@@ -74,10 +88,8 @@ $peg    = mysqli_fetch_array($tampilPeg);
     <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
       <div class="container-fluid py-1 px-3">
         <nav aria-label="breadcrumb">
-          <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-            <h6 class="font-weight-bolder mb-0">Informasi</h6>
-          </ol>
 
+          <h6>Edit Profiel</h6>
         </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
           <div class="ms-md-auto pe-md-3 d-flex align-items-center">
@@ -85,8 +97,8 @@ $peg    = mysqli_fetch_array($tampilPeg);
             <ul class="navbar-nav  justify-content-end">
               <li class="nav-item d-flex align-items-center">
                 <a href="javascript:;" class="nav-link text-body font-weight-bold px-0">
-                  <a href="../../apps/user/edituser.php?e=<?php echo $peg['nisn'] ?>"><i class="fa fa-user me-sm-1"></i></a>
-                  <span class="d-sm-inline d-none"><a href="apps/login/logout.php">Log Out</a> </span>
+                  <a href="tes.php"><i class="fa fa-user me-sm-1"></i></a>
+                  <span class="d-sm-inline d-none">Log Out </span>
                 </a>
               </li>
               <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
@@ -98,6 +110,7 @@ $peg    = mysqli_fetch_array($tampilPeg);
                   </div>
                 </a>
               </li>
+
             </ul>
           </div>
         </div>
@@ -105,47 +118,47 @@ $peg    = mysqli_fetch_array($tampilPeg);
     <!-- End Navbar -->
     <div class="container-fluid py-4">
       <div class="row">
-        <div class="card">
-          <div class="card-header p-3 pt-2">
-            <span class="nav-link-text ms-1">Berikut Tahapan PPDB Online :</span>
-            <p>1.Semua Calon Siswa Melakukan Pendaftaran Akun,Lalu Login Pakai Akun Yang Sudah Di Daftarkan Tadi
-            </p>
-            <p>2.Semua Calon Siswa Melengkapi Data Pribadi Dan Data Orang Tua,Lalu Mencetak Kartu Ujian
-            </p>
-            <p>3.Semua Calon Siswa Melakukan Ujian Tes Masuk
-            </p>
-            <p>4.Semua Calon Siswa Yang Dinyatakan Lulus Tes Melakukan Daftar Ulang Dengan Melakukan Upload Berkas Dibawah ini Dengan Format PDF Di Jadikan Satu File :
-            </p>
-            <ul>
-              <li>Akta Kelahiran</li>
-              <li>Kartu Keluarga</li>
-              <li>Ijazah/Surat Keterangan Lulus</li>
-            </ul>
-            <p>
-              5.Semua Siswa Yang Di nyatakan Lulus Hasil Akhir Harus Datang Kesekolah Untuk Konfirmasi Dan Bayar Daftar Ulang
-            </p>
+        <form role="form" action="" method="post" enctype="multipart/form-data">
+          <input type="hidden" name="nisn" value="<?php echo $tampil['nisn'] ?>">
+          <input type="hidden" name="tanggal">
+          <div class="input-group input-group-outline mb-3">
+            <input type="text" class="form-control" name="nama" placeholder="Nama" autocomplete="off" value="<?php echo $tampil['namasiswa'] ?>" readonly>
           </div>
-        </div>
+          <div class="input-group input-group-outline mb-3">
+            <input type="text" class="form-control" name="ttl" placeholder="Tempat Lahir" autocomplete="off">
+          </div>
+          <div class="input-group input-group-outline mb-3">
+            <input type="date" class="form-control" name="tgl_lahir" placeholder="Tanggal Lahir" autocomplete="off">
+          </div>
+          <div class="input-group input-group-outline mb-3">
+            <input type="text" class="form-control" name="jk" placeholder="Jenis Kelamin" autocomplete="off">
+          </div>
+          <div class="input-group input-group-outline mb-3">
+            <label class="upload">Upload Foto :</label><span class="max">Max 5Mb</span>
+            <input type="file" name="upload_foto" class="form-control">
+          </div>
+          <div class="text-center">
+            <button type="submit" class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0" name="simpan">Simpan</button>
+          </div>
+        </form>
       </div>
-    </div>
-    </div>
-    <footer class="footer py-4  ">
-      <div class="container-fluid">
-        <div class="row align-items-center justify-content-lg-between">
-          <div class="col-lg-6 mb-lg-0 mb-4">
-            <div class="copyright text-center text-sm text-muted text-lg-start">
-              © <script>
-                document.write(new Date().getFullYear())
-              </script>,
-              made with <i class="fa fa-heart"></i> by
-              <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Halis Najibi</a>
 
+      <footer class="footer py-4  ">
+        <div class="container-fluid">
+          <div class="row align-items-center justify-content-lg-between">
+            <div class="col-lg-6 mb-lg-0 mb-4">
+              <div class="copyright text-center text-sm text-muted text-lg-start">
+                © <script>
+                  document.write(new Date().getFullYear())
+                </script>,
+                made with <i class="fa fa-heart"></i> by
+                <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Haliz Najibi</a>
+              </div>
             </div>
-          </div>
 
+          </div>
         </div>
-      </div>
-    </footer>
+      </footer>
     </div>
   </main>
 
@@ -415,7 +428,6 @@ $peg    = mysqli_fetch_array($tampilPeg);
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="../../assets/js/material-dashboard.min.js?v=3.0.0"></script>
-
 </body>
 
 </html>
