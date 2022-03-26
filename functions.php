@@ -20,6 +20,9 @@ function tabel($query)
   return $SemuaData;
 }
 
+
+//user
+
 // insert regestrasi
 function reg($pos)
 {
@@ -204,3 +207,5 @@ function indotgl($tanggal)
   $tanggal = "$tgl-$bln-$thn";
   return $tanggal;
 }
+
+//akhir user
