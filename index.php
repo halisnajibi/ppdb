@@ -110,21 +110,21 @@ $kelas=mysqli_fetch_assoc($semuaruangan);
     <!-- End Navbar -->
     <div class="container-fluid py-4">
       <div class="row">
-        <?php if ($peg["statustes"] == 'gagal') { ?>
+        <?php if ($peg["statustes"] == 'Gagal') { ?>
           <p class="tidak_lulus">Mohon maaf anda tidak bisa melanjutkan ketahap berikutnya karena di nyatakan tidak lulus tes..</p>
         <?php } else { ?>
-          <?php if ($peg["statusdaftarulang"] == 'belum' && $peg["statusakhir"] == 'belum') { ?>
-            <?php if ($peg["statusreg"] == 'berhasil' && $peg["statustes"] == 'belum') { ?>
+          <?php if ($peg["statusdaftarulang"] == 'Belum' && $peg["statusakhir"] == 'Belum') { ?>
+            <?php if ($peg["statusreg"] == 'Berhasil' && $peg["statustes"] == 'Belum') { ?>
               <p class="lulus"></p>
               <p class="lulus">Silahkan masuk ke halaman informasi dengan mengklik tanda garis tiga di atas untuk membaca tahapan PPDB selajutnya atur profiel kalian dengan klik icon orang ,lalu <a href="apps/user/cetak.php?c=<?php echo $peg['nisn'] ?>" target="_blank">download</a> kartu ujian</p>
             <?php } else { ?>
               <p class="lulus">Selamat anda bisa melanjutkan ketahap berikutnya karena di nyatakan lulus tes..</p>
               <p class="lulus">Silahkan daftar ulang pada link ini <a href="apps/user/daftarulang.php?nisn=<?php echo $peg['nisn'] ?>" class="daftar_ulang">daftar</a> Sebelum daftar ulang silahkan baca informasi di bagian icon Informasi =</p>
             <?php } ?>
-          <?php } else if ($peg["statusdaftarulang"] == 'berhasil' && $peg["statusakhir"] == 'belum') { ?>
+          <?php } else if ($peg["statusdaftarulang"] == 'Berhasil' && $peg["statusakhir"] == 'Belum') { ?>
             <p class="lulus">Selamat daftar ulang anda berhasil silahkan tunggu hasil akhir..</p>
-          <?php } else if ($peg["statusdaftarulang"] == 'berhasil' && $peg["statusakhir"] == 'lulus') { ?>
-            <p class="lulus">Selamat anda di nyatakan lulus di SMP Harapan Banua Di Kelas <?php echo $kelas["kelas"] ?>..</p>
+          <?php } else if ($peg["statusdaftarulang"] == 'Berhasil' && $peg["statusakhir"] == 'Lulus') { ?>
+            <p class="lulus">Selamat anda di nyatakan lulus di SMP Harapan Banua Di Kelas <?php echo strtoupper($kelas["kelas"])  ?>..</p>
             <p class="lulus">Silahkan datang kesekolahan untuk konfirmasi dan membayar daftar ulang</p>
           <?php } ?>
         <?php } ?>
@@ -141,7 +141,7 @@ $kelas=mysqli_fetch_assoc($semuaruangan);
             </div>
             <hr class="dark horizontal my-0">
             <div class="card-footer p-3">
-              <?php if ($peg["statusreg"] == 'berhasil') {
+              <?php if ($peg["statusreg"] == 'Berhasil') {
               ?>
                 <p class="mb-0"><span class="text-success text-sm font-weight-bolder"><?php echo $peg["statusreg"] ?></span></p>
               <?php
@@ -153,7 +153,7 @@ $kelas=mysqli_fetch_assoc($semuaruangan);
           </div>
         </div>
         <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-          <?php if ($peg["statustes"] == 'gagal') { ?>
+          <?php if ($peg["statustes"] == 'Gagal') { ?>
             <div class="card">
               <div class="card-header p-3 pt-2">
                 <div class="icon icon-lg icon-shape bg-gradient-primary shadow-primary text-center border-radius-xl mt-n4 position-absolute">
@@ -166,7 +166,7 @@ $kelas=mysqli_fetch_assoc($semuaruangan);
               </div>
               <hr class="dark horizontal my-0">
               <div class="card-footer p-3">
-                <?php if ($peg["statustes"] == 'lulus') { ?>
+                <?php if ($peg["statustes"] == 'Lulus') { ?>
                   <p class="mb-0"><span class="text-success text-sm font-weight-bolder"><?php echo $peg["statustes"] ?></span></p>
                 <?php } else { ?>
                   <p class="mb-0"><span class="non text-sm font-weight-bolder"><?php echo $peg["statustes"] ?></span></p>
@@ -186,7 +186,7 @@ $kelas=mysqli_fetch_assoc($semuaruangan);
               </div>
               <hr class="dark horizontal my-0">
               <div class="card-footer p-3">
-                <?php if ($peg["statustes"] == 'lulus') { ?>
+                <?php if ($peg["statustes"] == 'Lulus') { ?>
                   <p class="mb-0"><span class="text-success text-sm font-weight-bolder"><?php echo $peg["statustes"] ?></span></p>
                 <?php } else { ?>
                   <p class="mb-0"><span class="non text-sm font-weight-bolder"><?php echo $peg["statustes"] ?></span></p>
@@ -207,7 +207,7 @@ $kelas=mysqli_fetch_assoc($semuaruangan);
             </div>
             <hr class="dark horizontal my-0">
             <div class="card-footer p-3">
-              <?php if ($peg["statusdaftarulang"] == 'berhasil') { ?>
+              <?php if ($peg["statusdaftarulang"] == 'Berhasil') { ?>
                 <p class="mb-0"><span class="text-success text-sm font-weight-bolder"><?php echo $peg["statusdaftarulang"] ?></span></p>
               <?php } else { ?>
                 <p class="mb-0"><span class="non text-sm font-weight-bolder"><?php echo $peg["statusdaftarulang"] ?></span></p>
@@ -228,7 +228,7 @@ $kelas=mysqli_fetch_assoc($semuaruangan);
             </div>
             <hr class="dark horizontal my-0">
             <div class="card-footer p-3">
-              <?php if ($peg["statusakhir"] == 'lulus') { ?>
+              <?php if ($peg["statusakhir"] == 'Lulus') { ?>
                 <p class="mb-0"><span class="text-success text-sm font-weight-bolder"><?php echo $peg["statusakhir"] ?></span></p>
               <?php } else { ?>
                 <p class="mb-0"><span class="non text-sm font-weight-bolder"><?php echo $peg["statusakhir"] ?></span></p>

@@ -119,6 +119,30 @@ function hapussiswa($id){
   return mysqli_affected_rows($conn);
 }
 
+//verifik
+function verik($pos){
+  global $conn;
+  $id=$pos["id"];
+  $nama=htmlspecialchars($pos["namasiswa"]);
+  $nopen=$pos["nopen"];
+  $reg=htmlspecialchars($pos["reg"]);
+  $tes=htmlspecialchars($pos["tes"]);
+  $daftarulang=htmlspecialchars($pos["daftarulang"]);
+  $akhir=htmlspecialchars($pos["akhir"]);
+
+  $sql="UPDATE tbl_siswa SET
+        nopen='$nopen',
+        namasiswa='$nama',
+        statusreg='$reg',
+        statustes='$tes',
+        statusdaftarulang='$daftarulang',
+        statusakhir='$akhir'
+        WHERE id_siswa='$id'";
+
+    mysqli_query($conn,$sql);
+    return mysqli_affected_rows($conn);
+}
+
 //update orgtua
 function update_orgtua($pos){
   global $conn;
@@ -173,7 +197,7 @@ function reg($pos)
   // sql
   $query = "INSERT INTO tbl_siswa
 VALUES
-('','$nopen','$nama','$nisn',null,'$telpon','$sekolah','$nilai','berhasil','$tgl_daftar',null,'belum',null,null,null,'belum',null,null,'belum',null,null,null,null,null,null)
+('','$nopen','$nama','$nisn',null,'$telpon','$sekolah','$nilai','Berhasil','$tgl_daftar',null,'Belum',null,null,null,'Belum',null,null,'Belum',null,null,null,null,null,null)
 ";
   mysqli_query($conn, $query);
   return mysqli_affected_rows($conn);
