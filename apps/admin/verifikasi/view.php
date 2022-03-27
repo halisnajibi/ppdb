@@ -370,7 +370,7 @@ $data = tabel("SELECT * FROM tbl_siswa");
                         <td><?= $satuan["statusreg"] ?> </td>
                         <td><?= $satuan["statustes"] ?> </td>
                         <td><?= $satuan["statusdaftarulang"] ?></td>
-                        <td><?= $satuan["uplod"] ?> </td>
+                        <td><a href="../../user/berkas/<?= $satuan["uplod"] ?>"><?= $satuan["uplod"] ?></a></td>
                         <td><?= $satuan["statusakhir"] ?> </td>
                         <td>
                           <a href="verifik.php?id=<?= $satuan["id_siswa"] ?>" class="btn btn-outline-warning btn-sm mb-2">Edit</a>

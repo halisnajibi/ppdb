@@ -370,7 +370,7 @@ $data = tabel("SELECT * FROM tbl_siswa");
                         <td><?= $satuan["namasiswa"] ?> </td>
                         <td><?= $satuan["nopen"] ?> </td>
                         <td><?= $satuan["nisn"] ?> </td>
-                        <td><?= $satuan["jk"] ?> </td>
+                        <td><?= strtoupper($satuan["jk"])  ?> </td>
                         <td><?= $satuan["tempat_lahir"] ?> <?= indotgl($satuan["tanggal_lahir"])  ?></td>
                         <td><?= $satuan["telpon"] ?> </td>
                         <td><?= $satuan["asalsekolah"] ?> </td>

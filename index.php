@@ -8,9 +8,9 @@ if ($_SESSION['status'] != "login") {
 require "functions.php";
 $tampilPeg    = mysqli_query($conn, "SELECT * FROM tbl_siswa WHERE nopen='$_SESSION[nopen]'");
 $peg    = mysqli_fetch_array($tampilPeg);
-$siswa=$peg["id_siswa"];
-$semuaruangan=mysqli_query($conn ,"SELECT * FROM tbl_ruangan INNER JOIN tbl_kelas ON tbl_ruangan.id_kelas=tbl_kelas.id_kelas WHERE id_siswa='$siswa'");
-$kelas=mysqli_fetch_assoc($semuaruangan);
+$siswa = $peg["id_siswa"];
+$semuaruangan = mysqli_query($conn, "SELECT * FROM tbl_ruangan INNER JOIN tbl_kelas ON tbl_ruangan.id_kelas=tbl_kelas.id_kelas WHERE id_siswa='$siswa'");
+$kelas = mysqli_fetch_assoc($semuaruangan);
 
 ?>
 <!DOCTYPE html>
@@ -116,7 +116,7 @@ $kelas=mysqli_fetch_assoc($semuaruangan);
           <?php if ($peg["statusdaftarulang"] == 'Belum' && $peg["statusakhir"] == 'Belum') { ?>
             <?php if ($peg["statusreg"] == 'Berhasil' && $peg["statustes"] == 'Belum') { ?>
               <p class="lulus"></p>
-              <p class="lulus">Silahkan masuk ke halaman informasi dengan mengklik tanda garis tiga di atas untuk membaca tahapan PPDB selajutnya atur profiel kalian dengan klik icon orang ,lalu <a href="apps/user/cetak.php?c=<?php echo $peg['nisn'] ?>" target="_blank">download</a> kartu ujian</p>
+              <p class="lulus">Silahkan masuk ke halaman informasi untuk membaca tahapan PPDB selajutnya atur profiel kalian dengan klik icon orang ,lalu <a href="apps/user/cetak.php?c=<?php echo $peg['nisn'] ?>" target="_blank">download</a> kartu ujian</p>
             <?php } else { ?>
               <p class="lulus">Selamat anda bisa melanjutkan ketahap berikutnya karena di nyatakan lulus tes..</p>
               <p class="lulus">Silahkan daftar ulang pada link ini <a href="apps/user/daftarulang.php?nisn=<?php echo $peg['nisn'] ?>" class="daftar_ulang">daftar</a> Sebelum daftar ulang silahkan baca informasi di bagian icon Informasi =</p>
@@ -263,7 +263,7 @@ $kelas=mysqli_fetch_assoc($semuaruangan);
                 <td>
                   <div class="d-flex px-2 py-1">
                     <div>
-                      <img src="apps/user/img/<?php echo $peg["foto"] ?>" class="avatar avatar-sm me-3 border-radius-lg" alt="user1">
+                      <img src="apps/user/img/<?php echo $peg["foto"] ?>" class="avatar avatar-sm me-3 border-radius-lg" alt=" <?php echo $peg["namasiswa"] ?>">
                     </div>
                     <div class="d-flex flex-column justify-content-center">
                       <h6 class="mb-0 text-sm"> <?php echo $peg["namasiswa"] ?></h6>

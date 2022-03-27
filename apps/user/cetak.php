@@ -46,7 +46,7 @@ $tampil = tabel("SELECT * FROM tbl_siswa WHERE nisn=$nisn")[0];
       </tr>
       <tr>
         <td>Jenis Kelamin</td>
-        <td><?php echo $tampil["jk"]; ?></td>
+        <td><?php echo strtoupper($tampil["jk"]) ; ?></td>
       </tr>
       <tr>
         <td colspan="2" class="nopen">Nomer Pendaftaran</td>

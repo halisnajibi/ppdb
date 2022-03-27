@@ -222,7 +222,7 @@ function daftar_ulang($pos){
   $sql_berkas="UPDATE tbl_siswa SET
                uplod='$berkas',
                tgl_daftarulang=current_timestamp(),
-               statusdaftarulang='berhasil'
+               statusdaftarulang='Berhasil'
                 WHERE nisn=$nisn";
   mysqli_query($conn,$sql_berkas);
     mysqli_query($conn,$sql);
@@ -236,7 +236,7 @@ function edit_user($pos)
   $nisn = $pos["nisn"];
   $ttl = htmlspecialchars($pos["ttl"]);
   $tgl = htmlspecialchars($pos["tgl_lahir"]);
-  $jk=htmlspecialchars($pos["jk"]);
+  $jk=htmlspecialchars(strtoupper($pos["jk"]) );
   $foto = foto();
   if (!$foto) {
     return false;
