@@ -1,6 +1,6 @@
 <?php
 require_once "../../../functions.php";
-$data = tabel("SELECT * FROM tbl_orangtua INNER JOIN tbl_siswa ON tbl_orangtua.id_siswa=tbl_siswa.id_siswa");
+$data = tabel("SELECT * FROM tbl_kelas");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -341,7 +341,10 @@ $data = tabel("SELECT * FROM tbl_orangtua INNER JOIN tbl_siswa ON tbl_orangtua.i
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <p>Table Orang Tua Calon Siswa</p>
+              <p>Table Kelas</p>
+              <a href="tambah.php">
+                <button type="submit" class="btn btn-outline-success btn-sm mb-2">Tambah Kelas</button>
+              </a>
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -349,11 +352,7 @@ $data = tabel("SELECT * FROM tbl_orangtua INNER JOIN tbl_siswa ON tbl_orangtua.i
                   <thead>
                     <tr>
                       <th>No</th>
-                      <th>Nama Siswa</th>
-                      <th>Nama Ayah</th>
-                      <th>Nama Ibu</th>
-                      <th>Alamat</th>
-                      <th>Penghasilan</th>
+                      <th>Kelas</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>
@@ -363,13 +362,9 @@ $data = tabel("SELECT * FROM tbl_orangtua INNER JOIN tbl_siswa ON tbl_orangtua.i
                     ?>
                       <tr>
                         <td><?php echo $i; ?></td>
-                        <td><?= $satuan["namasiswa"] ?> </td>
-                        <td><?= $satuan["nama_ayah"] ?> </td>
-                        <td><?= $satuan["nama_ibu"] ?> </td>
-                        <td><?= $satuan["alamat_orgtua"] ?> </td>
-                        <td><?= $satuan["penghasilan"] ?></td>
+                        <td><?= strtoupper( $satuan["kelas"]) ?> </td>
                         <td>
-                          <a href="edit.php?id=<?= $satuan["id_orgtua"] ?>" class="btn btn-outline-warning btn-sm mb-2">Edit</a>
+                          <a href="hapus.php?id=<?= $satuan["id_kelas"] ?>" class="btn btn-outline-danger btn-sm mb-2" onclick="return confirm('yakin untuk menghapus kelas')">Hapus</a>
                         </td>
                       </tr>
                     <?php $i++;

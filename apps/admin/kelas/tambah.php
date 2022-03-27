@@ -1,6 +1,23 @@
 <?php
 require_once "../../../functions.php";
-$data = tabel("SELECT * FROM tbl_orangtua INNER JOIN tbl_siswa ON tbl_orangtua.id_siswa=tbl_siswa.id_siswa");
+
+if(isset($_POST["simpan"])){
+  if(tambah_kelas($_POST) > 0){
+    echo "
+      <script>
+        alert('kelas berhasil di tambahkan');
+        document.location.href='view.php';    
+      </script>
+    ";
+  }else{
+    echo "
+    <script>
+      alert('gagal');
+    </script>
+    ";
+  }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -66,8 +83,8 @@ $data = tabel("SELECT * FROM tbl_orangtua INNER JOIN tbl_siswa ON tbl_orangtua.i
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="../siswa/view.php">Table Calon Siswa</a>
-            <a class="collapse-item" href="view.php">Table Orang Tua</a>
+            <a class="collapse-item" href="buttons.html">Table Calon Siswa</a>
+            <a class="collapse-item" href="cards.html">Table Orang Tua</a>
             <a class="collapse-item" href="cards.html">Table Kelas</a>
             <a class="collapse-item" href="cards.html">Table Ruangan</a>
             <a class="collapse-item" href="cards.html">Table Informasi</a>
@@ -341,63 +358,38 @@ $data = tabel("SELECT * FROM tbl_orangtua INNER JOIN tbl_siswa ON tbl_orangtua.i
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <p>Table Orang Tua Calon Siswa</p>
+              <p>Form Tambah Kelas</p>
             </div>
             <div class="card-body">
-              <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  <thead>
-                    <tr>
-                      <th>No</th>
-                      <th>Nama Siswa</th>
-                      <th>Nama Ayah</th>
-                      <th>Nama Ibu</th>
-                      <th>Alamat</th>
-                      <th>Penghasilan</th>
-                      <th>Aksi</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php $i = 1;
-                    foreach ($data as $satuan) :
-                    ?>
-                      <tr>
-                        <td><?php echo $i; ?></td>
-                        <td><?= $satuan["namasiswa"] ?> </td>
-                        <td><?= $satuan["nama_ayah"] ?> </td>
-                        <td><?= $satuan["nama_ibu"] ?> </td>
-                        <td><?= $satuan["alamat_orgtua"] ?> </td>
-                        <td><?= $satuan["penghasilan"] ?></td>
-                        <td>
-                          <a href="edit.php?id=<?= $satuan["id_orgtua"] ?>" class="btn btn-outline-warning btn-sm mb-2">Edit</a>
-                        </td>
-                      </tr>
-                    <?php $i++;
-                    endforeach;
-                    ?>
-                  </tbody>
-                </table>
-              </div>
+              <form action="" method="post" enctype="multipart/form-data">
+                <div class=" mb-3">
+                  <label for="exampleFormControlInput1" class="form-label">Nama Kelas</label>
+                  <input type="text" class="form-control" id="exampleFormControlInput1" name="namakelas" required autocomplete="off" autocapitalize="on">
+                  <button type="submit" name="simpan" class="mt-3 btn btn-outline-success">Simpan</button>
+                </div>
+              </form>
             </div>
           </div>
-
         </div>
-        <!-- /.container-fluid -->
       </div>
-      <!-- End of Main Content -->
-
-      <!-- Footer -->
-      <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2021</span>
-          </div>
-        </div>
-      </footer>
-      <!-- End of Footer -->
 
     </div>
-    <!-- End of Content Wrapper -->
+    <!-- /.container-fluid -->
+  </div>
+  <!-- End of Main Content -->
+
+  <!-- Footer -->
+  <footer class="sticky-footer bg-white">
+    <div class="container my-auto">
+      <div class="copyright text-center my-auto">
+        <span>Copyright &copy; Your Website 2021</span>
+      </div>
+    </div>
+  </footer>
+  <!-- End of Footer -->
+
+  </div>
+  <!-- End of Content Wrapper -->
 
   </div>
   <!-- End of Page Wrapper -->

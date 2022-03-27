@@ -21,6 +21,7 @@ function tabel($query)
 }
 
 //admin
+//update siswa
 function update_siswa($pos){
   global $conn;
   $id=$pos["id"];
@@ -111,12 +112,14 @@ function foto_update()
   return $namafilebaru;
 }
 
+//hapus siswa
 function hapussiswa($id){
   global $conn;
   mysqli_query($conn,"DELETE FROM tbl_siswa WHERE id_siswa='$id'");
   return mysqli_affected_rows($conn);
 }
 
+//update orgtua
 function update_orgtua($pos){
   global $conn;
   $id=$pos["id"];
@@ -133,6 +136,22 @@ function update_orgtua($pos){
         WHERE id_orgtua='$id'";
 
   mysqli_query($conn,$sql);
+  return mysqli_affected_rows($conn);
+}
+
+//kelas
+//tambah
+function tambah_kelas($pos){
+  global $conn;
+  $kelas=htmlspecialchars($pos["namakelas"]);
+  $sql="INSERT INTO tbl_kelas VALUES ('','$kelas')";
+  mysqli_query($conn,$sql);
+  return mysqli_affected_rows($conn);
+}
+//hapus
+function hapus_kelas($id){
+  global $conn;
+  mysqli_query($conn,"DELETE FROM tbl_kelas WHERE id_kelas='$id'");
   return mysqli_affected_rows($conn);
 }
 //akhir admin
