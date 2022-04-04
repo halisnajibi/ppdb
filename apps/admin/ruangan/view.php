@@ -1,6 +1,6 @@
 <?php
 require_once "../../../functions.php";
-$data = tabel("SELECT * FROM tbl_siswa");
+$data = tabel("SELECT * FROM tbl_ruangan INNER JOIN tbl_kelas ON tbl_ruangan.id_kelas=tbl_kelas.id_kelas INNER JOIN tbl_siswa ON tbl_ruangan.id_siswa=tbl_siswa.id_siswa");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -341,7 +341,8 @@ $data = tabel("SELECT * FROM tbl_siswa");
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <p>Table Verifikasi Data Calon Siswa</p>
+              <p>Table Ruangan Siswa</p>
+              <a href="tambah.php"><button type="submit" name="" class="btn btn-outline-success">Tambah Ruangan</button></a>
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -349,14 +350,9 @@ $data = tabel("SELECT * FROM tbl_siswa");
                   <thead>
                     <tr>
                       <th>No</th>
-                      <th>Nama</th>
+                      <th>Nama Siswa</th>
                       <th>No Pendaftaran</th>
-                      <th>Status Regestrasi</th>
-                      <th>Status Tes</th>
-                      <th>Status Daftar Ulang</th>
-                      <th>Tanggal Daftar Ulang</th>
-                      <th>Berkas</th>
-                      <th>Status Akhir</th>
+                      <th>Kelas</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>
@@ -368,14 +364,9 @@ $data = tabel("SELECT * FROM tbl_siswa");
                         <td><?php echo $i; ?></td>
                         <td><?= $satuan["namasiswa"] ?> </td>
                         <td><?= $satuan["nopen"] ?> </td>
-                        <td><?= $satuan["statusreg"] ?> </td>
-                        <td><?= $satuan["statustes"] ?> </td>
-                        <td><?= $satuan["statusdaftarulang"] ?></td>
-                        <td><?= $satuan["tgl_daftarulang"] ?></td>
-                        <td><a href="../../user/berkas/<?= $satuan["uplod"] ?>"><?= $satuan["uplod"] ?></a></td>
-                        <td><?= $satuan["statusakhir"] ?> </td>
+                        <td><?= strtoupper($satuan["kelas"])  ?> </td>
                         <td>
-                          <a href="verifik.php?id=<?= $satuan["id_siswa"] ?>" class="btn btn-outline-warning btn-sm mb-2">Edit</a>
+                          <a href="edit.php?id=<?= $satuan["id_ruangan"] ?>" class="btn btn-outline-warning btn-sm mb-2">Edit</a>
                         </td>
                       </tr>
                     <?php $i++;

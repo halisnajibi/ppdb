@@ -65,7 +65,7 @@
             <a class="collapse-item" href="siswa/view.php">Table Calon Siswa</a>
             <a class="collapse-item" href="orang tua/view.php">Table Orang Tua</a>
             <a class="collapse-item" href="kelas/view.php">Table Kelas</a>
-            <a class="collapse-item" href="cards.html">Table Ruangan</a>
+            <a class="collapse-item" href="ruangan/view.php">Table Ruangan</a>
             <a class="collapse-item" href="cards.html">Table Informasi</a>
           </div>
         </div>

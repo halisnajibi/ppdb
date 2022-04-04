@@ -1,6 +1,24 @@
 <?php
 require_once "../../../functions.php";
-$data = tabel("SELECT * FROM tbl_siswa");
+$semuakelas = tabel("SELECT * FROM tbl_kelas");
+$semuasiswa = tabel("SELECT * FROM tbl_siswa");
+if (isset($_POST["simpan"])) {
+  if (tambah_ruangan($_POST) > 0) {
+    echo "
+      <script>
+        alert('ruangan berhasil di tambahkan');
+        document.location.href='view.php';    
+      </script>
+    ";
+  } else {
+    echo "
+    <script>
+      alert('gagal');
+    </script>
+    ";
+  }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -66,10 +84,10 @@ $data = tabel("SELECT * FROM tbl_siswa");
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="view.php">Table Calon Siswa</a>
-            <a class="collapse-item" href="../orang tua/view.php">Table Orang Tua</a>
-            <a class="collapse-item" href="../kelas/view.php">Table Kelas</a>
-            <a class="collapse-item" href="../ruangan/view.php">Table Ruangan</a>
+            <a class="collapse-item" href="buttons.html">Table Calon Siswa</a>
+            <a class="collapse-item" href="cards.html">Table Orang Tua</a>
+            <a class="collapse-item" href="cards.html">Table Kelas</a>
+            <a class="collapse-item" href="cards.html">Table Ruangan</a>
             <a class="collapse-item" href="cards.html">Table Informasi</a>
           </div>
         </div>
@@ -341,69 +359,48 @@ $data = tabel("SELECT * FROM tbl_siswa");
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <p>Table Verifikasi Data Calon Siswa</p>
+              <p>Form Tambah Ruangan</p>
             </div>
             <div class="card-body">
-              <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  <thead>
-                    <tr>
-                      <th>No</th>
-                      <th>Nama</th>
-                      <th>No Pendaftaran</th>
-                      <th>Status Regestrasi</th>
-                      <th>Status Tes</th>
-                      <th>Status Daftar Ulang</th>
-                      <th>Tanggal Daftar Ulang</th>
-                      <th>Berkas</th>
-                      <th>Status Akhir</th>
-                      <th>Aksi</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php $i = 1;
-                    foreach ($data as $satuan) :
-                    ?>
-                      <tr>
-                        <td><?php echo $i; ?></td>
-                        <td><?= $satuan["namasiswa"] ?> </td>
-                        <td><?= $satuan["nopen"] ?> </td>
-                        <td><?= $satuan["statusreg"] ?> </td>
-                        <td><?= $satuan["statustes"] ?> </td>
-                        <td><?= $satuan["statusdaftarulang"] ?></td>
-                        <td><?= $satuan["tgl_daftarulang"] ?></td>
-                        <td><a href="../../user/berkas/<?= $satuan["uplod"] ?>"><?= $satuan["uplod"] ?></a></td>
-                        <td><?= $satuan["statusakhir"] ?> </td>
-                        <td>
-                          <a href="verifik.php?id=<?= $satuan["id_siswa"] ?>" class="btn btn-outline-warning btn-sm mb-2">Edit</a>
-                        </td>
-                      </tr>
-                    <?php $i++;
-                    endforeach;
-                    ?>
-                  </tbody>
-                </table>
-              </div>
+              <form action="" method="post" enctype="multipart/form-data">
+                <div class="mb-3">
+                  <label for="exampleFormControlInput1" class="form-label">Nama Siswa</label>
+                  <select name="nama" id="" class="form-control" required>
+                    <?php foreach ($semuasiswa AS $siswa) : ?>
+                      <option value="<?= $siswa["id_siswa"] ?>"><?= $siswa["namasiswa"] ?></option>
+                    <?php endforeach; ?>
+                  </select>
+                  <label for="exampleFormControlInput1" class="form-label">Kelas</label>
+                  <select name="kelas" id="" class="form-control" required>
+                    <?php foreach ($semuakelas AS $kelas) : ?>
+                      <option value="<?= $kelas["id_kelas"] ?>"><?= strtoupper($kelas["kelas"])  ?></option>
+                    <?php endforeach; ?>
+                  </select>
+                  <button type="submit" name="simpan" class="btn btn-outline-success mt-3">Simpan</button>
+                </div>
+              </form>
             </div>
           </div>
-
         </div>
-        <!-- /.container-fluid -->
       </div>
-      <!-- End of Main Content -->
-
-      <!-- Footer -->
-      <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2021</span>
-          </div>
-        </div>
-      </footer>
-      <!-- End of Footer -->
 
     </div>
-    <!-- End of Content Wrapper -->
+    <!-- /.container-fluid -->
+  </div>
+  <!-- End of Main Content -->
+
+  <!-- Footer -->
+  <footer class="sticky-footer bg-white">
+    <div class="container my-auto">
+      <div class="copyright text-center my-auto">
+        <span>Copyright &copy; Your Website 2021</span>
+      </div>
+    </div>
+  </footer>
+  <!-- End of Footer -->
+
+  </div>
+  <!-- End of Content Wrapper -->
 
   </div>
   <!-- End of Page Wrapper -->

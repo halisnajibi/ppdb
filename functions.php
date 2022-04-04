@@ -178,6 +178,32 @@ function hapus_kelas($id){
   mysqli_query($conn,"DELETE FROM tbl_kelas WHERE id_kelas='$id'");
   return mysqli_affected_rows($conn);
 }
+
+//ruangan
+//tambah
+function tambah_ruangan($pos){
+  global $conn;
+  $nama=htmlspecialchars($pos["nama"]);
+  $kelas=htmlspecialchars($pos["kelas"]);
+  
+  $sql="INSERT INTO tbl_ruangan VALUES
+        ('','$kelas','$nama')";
+        mysqli_query($conn,$sql);
+        return mysqli_affected_rows($conn);
+}
+
+//update ruangan
+function update_ruangan($pos){
+  global $conn;
+  $id=$pos["id"];
+  $kelas=$pos["kelas"];
+
+  $sql="UPDATE tbl_ruangan SET
+        id_kelas='$kelas'
+        WHERE id_ruangan='$id'";
+  mysqli_query($conn,$sql);
+  return mysqli_affected_rows($conn);
+}
 //akhir admin
 
 

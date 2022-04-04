@@ -1,7 +1,24 @@
 <?php
-require_once "../../../functions.php";
-$data = tabel("SELECT * FROM tbl_siswa");
+require "../../../functions.php";
+$id = $_GET["id"];
+$ruangan = tabel("SELECT * FROM tbl_ruangan WHERE id_ruangan='$id' ")[0];
+$id_kelas = $ruangan["id_kelas"];
+$kelas = tabel("SELECT * FROM tbl_kelas WHERE id_kelas='$id_kelas'")[0];
+
+$semuakelas = tabel("SELECT * FROM tbl_kelas");
+
+if(isset($_POST["update"])){
+  if(update_ruangan($_POST) > 0){
+    echo
+    " <script>
+                alert('Berhasil');
+                  document.location.href='view.php';
+         </script>
+            ";
+  }
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,7 +38,7 @@ $data = tabel("SELECT * FROM tbl_siswa");
   <link href="../../../assets_admin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
   <!-- Custom styles for this template-->
   <link href="../../../assets_admin/css/sb-admin-2.min.css" rel="stylesheet">
-
+  <link href="../../../assets/css/style.css" rel="stylesheet">
 </head>
 
 <body id="page-top">
@@ -66,10 +83,10 @@ $data = tabel("SELECT * FROM tbl_siswa");
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="view.php">Table Calon Siswa</a>
-            <a class="collapse-item" href="../orang tua/view.php">Table Orang Tua</a>
-            <a class="collapse-item" href="../kelas/view.php">Table Kelas</a>
-            <a class="collapse-item" href="../ruangan/view.php">Table Ruangan</a>
+            <a class="collapse-item" href="../siswa/view.php">Table Calon Siswa</a>
+            <a class="collapse-item" href="view.php">Table Orang Tua</a>
+            <a class="collapse-item" href="cards.html">Table Kelas</a>
+            <a class="collapse-item" href="cards.html">Table Ruangan</a>
             <a class="collapse-item" href="cards.html">Table Informasi</a>
           </div>
         </div>
@@ -341,69 +358,44 @@ $data = tabel("SELECT * FROM tbl_siswa");
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <p>Table Verifikasi Data Calon Siswa</p>
+              <p>Form Edit Data</p>
             </div>
             <div class="card-body">
-              <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  <thead>
-                    <tr>
-                      <th>No</th>
-                      <th>Nama</th>
-                      <th>No Pendaftaran</th>
-                      <th>Status Regestrasi</th>
-                      <th>Status Tes</th>
-                      <th>Status Daftar Ulang</th>
-                      <th>Tanggal Daftar Ulang</th>
-                      <th>Berkas</th>
-                      <th>Status Akhir</th>
-                      <th>Aksi</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php $i = 1;
-                    foreach ($data as $satuan) :
-                    ?>
-                      <tr>
-                        <td><?php echo $i; ?></td>
-                        <td><?= $satuan["namasiswa"] ?> </td>
-                        <td><?= $satuan["nopen"] ?> </td>
-                        <td><?= $satuan["statusreg"] ?> </td>
-                        <td><?= $satuan["statustes"] ?> </td>
-                        <td><?= $satuan["statusdaftarulang"] ?></td>
-                        <td><?= $satuan["tgl_daftarulang"] ?></td>
-                        <td><a href="../../user/berkas/<?= $satuan["uplod"] ?>"><?= $satuan["uplod"] ?></a></td>
-                        <td><?= $satuan["statusakhir"] ?> </td>
-                        <td>
-                          <a href="verifik.php?id=<?= $satuan["id_siswa"] ?>" class="btn btn-outline-warning btn-sm mb-2">Edit</a>
-                        </td>
-                      </tr>
-                    <?php $i++;
-                    endforeach;
-                    ?>
-                  </tbody>
-                </table>
-              </div>
+              <form action="" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="id" value=<?php echo $ruangan["id_ruangan"]; ?>>
+
+                <div class="mb-3">
+                  <label for="exampleFormControlInput1" class="form-label">Kelas <span class="kelas bg-success"><?= strtoupper($kelas["kelas"]); ?></span> </label>
+                  <select name="kelas" id="" class="form-control col-12" required>
+                    <?php foreach ($semuakelas as $kelas) : ?>
+                      <option value="<?= $kelas["id_kelas"] ?>"><?= strtoupper($kelas["kelas"])  ?></option>
+                    <?php endforeach; ?>
+                  </select>
+                </div>
+              
+                <button type="submit" name="update" class="btn btn-outline-success">Simpan</button>
+              </form>
             </div>
           </div>
-
         </div>
-        <!-- /.container-fluid -->
+
       </div>
-      <!-- End of Main Content -->
-
-      <!-- Footer -->
-      <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2021</span>
-          </div>
-        </div>
-      </footer>
-      <!-- End of Footer -->
-
+      <!-- /.container-fluid -->
     </div>
-    <!-- End of Content Wrapper -->
+    <!-- End of Main Content -->
+
+    <!-- Footer -->
+    <footer class="sticky-footer bg-white">
+      <div class="container my-auto">
+        <div class="copyright text-center my-auto">
+          <span>Copyright &copy; Your Website 2021</span>
+        </div>
+      </div>
+    </footer>
+    <!-- End of Footer -->
+
+  </div>
+  <!-- End of Content Wrapper -->
 
   </div>
   <!-- End of Page Wrapper -->
