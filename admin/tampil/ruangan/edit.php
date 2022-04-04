@@ -1,7 +1,24 @@
 <?php
-require_once "../../../functions.php";
-$data = tabel("SELECT * FROM tbl_ruangan INNER JOIN tbl_kelas ON tbl_ruangan.id_kelas=tbl_kelas.id_kelas INNER JOIN tbl_siswa ON tbl_ruangan.id_siswa=tbl_siswa.id_siswa");
+require "../../../functions.php";
+$id = $_GET["id"];
+$ruangan = tabel("SELECT * FROM tbl_ruangan WHERE id_ruangan='$id' ")[0];
+$id_kelas = $ruangan["id_kelas"];
+$kelas = tabel("SELECT * FROM tbl_kelas WHERE id_kelas='$id_kelas'")[0];
+
+$semuakelas = tabel("SELECT * FROM tbl_kelas");
+
+if (isset($_POST["update"])) {
+  if (update_ruangan($_POST) > 0) {
+    echo
+    " <script>
+                alert('Berhasil');
+                  document.location.href='view.php';
+         </script>
+            ";
+  }
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,7 +38,7 @@ $data = tabel("SELECT * FROM tbl_ruangan INNER JOIN tbl_kelas ON tbl_ruangan.id_
   <link href="../../../assets_admin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
   <!-- Custom styles for this template-->
   <link href="../../../assets_admin/css/sb-admin-2.min.css" rel="stylesheet">
-
+  <link href="../../../assets/css/style.css" rel="stylesheet">
 </head>
 
 <body id="page-top">
@@ -43,9 +60,8 @@ $data = tabel("SELECT * FROM tbl_ruangan INNER JOIN tbl_kelas ON tbl_ruangan.id_
       <!-- Divider -->
       <hr class="sidebar-divider my-0">
 
-      <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="../index.php">
+        <a class="nav-link" href="../../index.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
@@ -83,7 +99,7 @@ $data = tabel("SELECT * FROM tbl_ruangan INNER JOIN tbl_kelas ON tbl_ruangan.id_
         </a>
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="utilities-other.html">Siswa</a>
+            <a class="collapse-item" href="../verifikasi/view.php">Siswa</a>
           </div>
         </div>
       </li>
@@ -341,60 +357,44 @@ $data = tabel("SELECT * FROM tbl_ruangan INNER JOIN tbl_kelas ON tbl_ruangan.id_
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <p>Table Ruangan Siswa</p>
-              <a href="tambah.php"><button type="submit" name="" class="btn btn-outline-success">Tambah Ruangan</button></a>
+              <p>Form Edit Data</p>
             </div>
             <div class="card-body">
-              <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  <thead>
-                    <tr>
-                      <th>No</th>
-                      <th>Nama Siswa</th>
-                      <th>No Pendaftaran</th>
-                      <th>Kelas</th>
-                      <th>Aksi</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php $i = 1;
-                    foreach ($data as $satuan) :
-                    ?>
-                      <tr>
-                        <td><?php echo $i; ?></td>
-                        <td><?= $satuan["namasiswa"] ?> </td>
-                        <td><?= $satuan["nopen"] ?> </td>
-                        <td><?= strtoupper($satuan["kelas"])  ?> </td>
-                        <td>
-                          <a href="edit.php?id=<?= $satuan["id_ruangan"] ?>" class="btn btn-outline-warning btn-sm mb-2">Edit</a>
-                        </td>
-                      </tr>
-                    <?php $i++;
-                    endforeach;
-                    ?>
-                  </tbody>
-                </table>
-              </div>
+              <form action="" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="id" value=<?php echo $ruangan["id_ruangan"]; ?>>
+
+                <div class="mb-3">
+                  <label for="exampleFormControlInput1" class="form-label">Kelas <span class="kelas bg-success"><?= strtoupper($kelas["kelas"]); ?></span> </label>
+                  <select name="kelas" id="" class="form-control col-12" required>
+                    <?php foreach ($semuakelas as $kelas) : ?>
+                      <option value="<?= $kelas["id_kelas"] ?>"><?= strtoupper($kelas["kelas"])  ?></option>
+                    <?php endforeach; ?>
+                  </select>
+                </div>
+
+                <button type="submit" name="update" class="btn btn-outline-success">Simpan</button>
+              </form>
             </div>
           </div>
-
         </div>
-        <!-- /.container-fluid -->
+
       </div>
-      <!-- End of Main Content -->
-
-      <!-- Footer -->
-      <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2021</span>
-          </div>
-        </div>
-      </footer>
-      <!-- End of Footer -->
-
+      <!-- /.container-fluid -->
     </div>
-    <!-- End of Content Wrapper -->
+    <!-- End of Main Content -->
+
+    <!-- Footer -->
+    <footer class="sticky-footer bg-white">
+      <div class="container my-auto">
+        <div class="copyright text-center my-auto">
+          <span>Copyright &copy; Your Website 2021</span>
+        </div>
+      </div>
+    </footer>
+    <!-- End of Footer -->
+
+  </div>
+  <!-- End of Content Wrapper -->
 
   </div>
   <!-- End of Page Wrapper -->

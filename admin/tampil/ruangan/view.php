@@ -1,26 +1,6 @@
 <?php
 require_once "../../../functions.php";
-$id = $_GET["id"];
-$data = tabel("SELECT * FROM tbl_orangtua WHERE id_orgtua='$id'")[0];
-
-if (isset($_POST["update"])) {
-  if (update_orgtua($_POST) > 0) {
-    echo "
-        <script>
-                alert('Berhasil');
-                  document.location.href='view.php';
-         </script>
-            ";
-  } else {
-    echo "
-        <script>
-                alert('gagal);
-                  document.location.href='view.php';
-         </script>
-            ";
-  }
-}
-
+$data = tabel("SELECT * FROM tbl_ruangan INNER JOIN tbl_kelas ON tbl_ruangan.id_kelas=tbl_kelas.id_kelas INNER JOIN tbl_siswa ON tbl_ruangan.id_siswa=tbl_siswa.id_siswa");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -63,9 +43,8 @@ if (isset($_POST["update"])) {
       <!-- Divider -->
       <hr class="sidebar-divider my-0">
 
-      <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="../index.php">
+        <a class="nav-link" href="../../index.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
@@ -86,10 +65,10 @@ if (isset($_POST["update"])) {
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="../siswa/view.php">Table Calon Siswa</a>
-            <a class="collapse-item" href="view.php">Table Orang Tua</a>
-            <a class="collapse-item" href="cards.html">Table Kelas</a>
-            <a class="collapse-item" href="cards.html">Table Ruangan</a>
+            <a class="collapse-item" href="view.php">Table Calon Siswa</a>
+            <a class="collapse-item" href="../orang tua/view.php">Table Orang Tua</a>
+            <a class="collapse-item" href="../kelas/view.php">Table Kelas</a>
+            <a class="collapse-item" href="../ruangan/view.php">Table Ruangan</a>
             <a class="collapse-item" href="cards.html">Table Informasi</a>
           </div>
         </div>
@@ -103,7 +82,7 @@ if (isset($_POST["update"])) {
         </a>
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="utilities-other.html">Siswa</a>
+            <a class="collapse-item" href="../verifikasi/view.php">Siswa</a>
           </div>
         </div>
       </li>
@@ -361,51 +340,60 @@ if (isset($_POST["update"])) {
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <p>Form Edit Data</p>
+              <p>Table Ruangan Siswa</p>
+              <a href="tambah.php"><button type="submit" name="" class="btn btn-outline-success">Tambah Ruangan</button></a>
             </div>
             <div class="card-body">
-              <form action="" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="id" value=<?php echo $data["id_orgtua"]; ?>>
-                <div class=" mb-3">
-                  <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Nama Ayah</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" name="namaayah" required autocomplete="off" value="<?= $data['nama_ayah'] ?>">
-                  </div>
-                  <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Nama Ibu</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" name="namaibu" required autocomplete="off" value="<?= $data['nama_ibu'] ?>">
-                  </div>
-                  <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Alamat</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" name="alamat" required autocomplete="off" value="<?= $data['alamat_orgtua'] ?>">
-                  </div>
-                  <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Penghasilan</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" name="penghasilan" required autocomplete="off" value="<?= $data['penghasilan'] ?>">
-                  </div>
-                  <button type="submit" name="update" class="btn btn-outline-success">Simpan</button>
-              </form>
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>No</th>
+                      <th>Nama Siswa</th>
+                      <th>No Pendaftaran</th>
+                      <th>Kelas</th>
+                      <th>Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php $i = 1;
+                    foreach ($data as $satuan) :
+                    ?>
+                      <tr>
+                        <td><?php echo $i; ?></td>
+                        <td><?= $satuan["namasiswa"] ?> </td>
+                        <td><?= $satuan["nopen"] ?> </td>
+                        <td><?= strtoupper($satuan["kelas"])  ?> </td>
+                        <td>
+                          <a href="edit.php?id=<?= $satuan["id_ruangan"] ?>" class="btn btn-outline-warning btn-sm mb-2">Edit</a>
+                        </td>
+                      </tr>
+                    <?php $i++;
+                    endforeach;
+                    ?>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
-        </div>
 
+        </div>
+        <!-- /.container-fluid -->
       </div>
-      <!-- /.container-fluid -->
+      <!-- End of Main Content -->
+
+      <!-- Footer -->
+      <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Copyright &copy; Your Website 2021</span>
+          </div>
+        </div>
+      </footer>
+      <!-- End of Footer -->
+
     </div>
-    <!-- End of Main Content -->
-
-    <!-- Footer -->
-    <footer class="sticky-footer bg-white">
-      <div class="container my-auto">
-        <div class="copyright text-center my-auto">
-          <span>Copyright &copy; Your Website 2021</span>
-        </div>
-      </div>
-    </footer>
-    <!-- End of Footer -->
-
-  </div>
-  <!-- End of Content Wrapper -->
+    <!-- End of Content Wrapper -->
 
   </div>
   <!-- End of Page Wrapper -->

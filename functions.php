@@ -108,7 +108,7 @@ function foto_update()
   $namafilebaru .= '.';
   $namafilebaru .= $extensigambar;
   //nama folder relative sama file dimana di upload
-  move_uploaded_file($tmpname, '../../user/img/' . $namafilebaru);
+  move_uploaded_file($tmpname, '../../../user/apps/user/img/' . $namafilebaru);
   return $namafilebaru;
 }
 

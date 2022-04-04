@@ -1,6 +1,23 @@
 <?php
 require_once "../../../functions.php";
-$data = tabel("SELECT * FROM tbl_siswa");
+
+if (isset($_POST["simpan"])) {
+  if (tambah_kelas($_POST) > 0) {
+    echo "
+      <script>
+        alert('kelas berhasil di tambahkan');
+        document.location.href='view.php';    
+      </script>
+    ";
+  } else {
+    echo "
+    <script>
+      alert('gagal');
+    </script>
+    ";
+  }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,7 +50,7 @@ $data = tabel("SELECT * FROM tbl_siswa");
     <ul class="navbar-nav bg-gradient-success sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-laugh-wink"></i>
         </div>
@@ -43,9 +60,8 @@ $data = tabel("SELECT * FROM tbl_siswa");
       <!-- Divider -->
       <hr class="sidebar-divider my-0">
 
-      <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="../index.php">
+        <a class="nav-link" href="../../index.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
@@ -83,10 +99,11 @@ $data = tabel("SELECT * FROM tbl_siswa");
         </a>
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="utilities-other.html">Siswa</a>
+            <a class="collapse-item" href="../verifikasi/view.php">Siswa</a>
           </div>
         </div>
       </li>
+
 
       <!-- Divider -->
       <hr class="sidebar-divider">
@@ -341,69 +358,38 @@ $data = tabel("SELECT * FROM tbl_siswa");
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <p>Table Verifikasi Data Calon Siswa</p>
+              <p>Form Tambah Kelas</p>
             </div>
             <div class="card-body">
-              <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  <thead>
-                    <tr>
-                      <th>No</th>
-                      <th>Nama</th>
-                      <th>No Pendaftaran</th>
-                      <th>Status Regestrasi</th>
-                      <th>Status Tes</th>
-                      <th>Status Daftar Ulang</th>
-                      <th>Tanggal Daftar Ulang</th>
-                      <th>Berkas</th>
-                      <th>Status Akhir</th>
-                      <th>Aksi</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php $i = 1;
-                    foreach ($data as $satuan) :
-                    ?>
-                      <tr>
-                        <td><?php echo $i; ?></td>
-                        <td><?= $satuan["namasiswa"] ?> </td>
-                        <td><?= $satuan["nopen"] ?> </td>
-                        <td><?= $satuan["statusreg"] ?> </td>
-                        <td><?= $satuan["statustes"] ?> </td>
-                        <td><?= $satuan["statusdaftarulang"] ?></td>
-                        <td><?= $satuan["tgl_daftarulang"] ?></td>
-                        <td><a href="../../user/berkas/<?= $satuan["uplod"] ?>"><?= $satuan["uplod"] ?></a></td>
-                        <td><?= $satuan["statusakhir"] ?> </td>
-                        <td>
-                          <a href="verifik.php?id=<?= $satuan["id_siswa"] ?>" class="btn btn-outline-warning btn-sm mb-2">Edit</a>
-                        </td>
-                      </tr>
-                    <?php $i++;
-                    endforeach;
-                    ?>
-                  </tbody>
-                </table>
-              </div>
+              <form action="" method="post" enctype="multipart/form-data">
+                <div class=" mb-3">
+                  <label for="exampleFormControlInput1" class="form-label">Nama Kelas</label>
+                  <input type="text" class="form-control" id="exampleFormControlInput1" name="namakelas" required autocomplete="off" autocapitalize="on">
+                  <button type="submit" name="simpan" class="mt-3 btn btn-outline-success">Simpan</button>
+                </div>
+              </form>
             </div>
           </div>
-
         </div>
-        <!-- /.container-fluid -->
       </div>
-      <!-- End of Main Content -->
-
-      <!-- Footer -->
-      <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2021</span>
-          </div>
-        </div>
-      </footer>
-      <!-- End of Footer -->
 
     </div>
-    <!-- End of Content Wrapper -->
+    <!-- /.container-fluid -->
+  </div>
+  <!-- End of Main Content -->
+
+  <!-- Footer -->
+  <footer class="sticky-footer bg-white">
+    <div class="container my-auto">
+      <div class="copyright text-center my-auto">
+        <span>Copyright &copy; Your Website 2021</span>
+      </div>
+    </div>
+  </footer>
+  <!-- End of Footer -->
+
+  </div>
+  <!-- End of Content Wrapper -->
 
   </div>
   <!-- End of Page Wrapper -->

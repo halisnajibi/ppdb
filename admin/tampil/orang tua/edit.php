@@ -1,24 +1,27 @@
 <?php
-require "../../../functions.php";
+require_once "../../../functions.php";
 $id = $_GET["id"];
-$ruangan = tabel("SELECT * FROM tbl_ruangan WHERE id_ruangan='$id' ")[0];
-$id_kelas = $ruangan["id_kelas"];
-$kelas = tabel("SELECT * FROM tbl_kelas WHERE id_kelas='$id_kelas'")[0];
+$data = tabel("SELECT * FROM tbl_orangtua WHERE id_orgtua='$id'")[0];
 
-$semuakelas = tabel("SELECT * FROM tbl_kelas");
-
-if(isset($_POST["update"])){
-  if(update_ruangan($_POST) > 0){
-    echo
-    " <script>
+if (isset($_POST["update"])) {
+  if (update_orgtua($_POST) > 0) {
+    echo "
+        <script>
                 alert('Berhasil');
+                  document.location.href='view.php';
+         </script>
+            ";
+  } else {
+    echo "
+        <script>
+                alert('gagal);
                   document.location.href='view.php';
          </script>
             ";
   }
 }
-?>
 
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,7 +41,7 @@ if(isset($_POST["update"])){
   <link href="../../../assets_admin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
   <!-- Custom styles for this template-->
   <link href="../../../assets_admin/css/sb-admin-2.min.css" rel="stylesheet">
-  <link href="../../../assets/css/style.css" rel="stylesheet">
+
 </head>
 
 <body id="page-top">
@@ -50,7 +53,7 @@ if(isset($_POST["update"])){
     <ul class="navbar-nav bg-gradient-success sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-laugh-wink"></i>
         </div>
@@ -60,9 +63,8 @@ if(isset($_POST["update"])){
       <!-- Divider -->
       <hr class="sidebar-divider my-0">
 
-      <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="../index.php">
+        <a class="nav-link" href="../../index.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
@@ -83,10 +85,10 @@ if(isset($_POST["update"])){
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="../siswa/view.php">Table Calon Siswa</a>
-            <a class="collapse-item" href="view.php">Table Orang Tua</a>
-            <a class="collapse-item" href="cards.html">Table Kelas</a>
-            <a class="collapse-item" href="cards.html">Table Ruangan</a>
+            <a class="collapse-item" href="view.php">Table Calon Siswa</a>
+            <a class="collapse-item" href="../orang tua/view.php">Table Orang Tua</a>
+            <a class="collapse-item" href="../kelas/view.php">Table Kelas</a>
+            <a class="collapse-item" href="../ruangan/view.php">Table Ruangan</a>
             <a class="collapse-item" href="cards.html">Table Informasi</a>
           </div>
         </div>
@@ -100,10 +102,11 @@ if(isset($_POST["update"])){
         </a>
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="utilities-other.html">Siswa</a>
+            <a class="collapse-item" href="../verifikasi/view.php">Siswa</a>
           </div>
         </div>
       </li>
+
 
       <!-- Divider -->
       <hr class="sidebar-divider">
@@ -362,18 +365,25 @@ if(isset($_POST["update"])){
             </div>
             <div class="card-body">
               <form action="" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="id" value=<?php echo $ruangan["id_ruangan"]; ?>>
-
-                <div class="mb-3">
-                  <label for="exampleFormControlInput1" class="form-label">Kelas <span class="kelas bg-success"><?= strtoupper($kelas["kelas"]); ?></span> </label>
-                  <select name="kelas" id="" class="form-control col-12" required>
-                    <?php foreach ($semuakelas as $kelas) : ?>
-                      <option value="<?= $kelas["id_kelas"] ?>"><?= strtoupper($kelas["kelas"])  ?></option>
-                    <?php endforeach; ?>
-                  </select>
-                </div>
-              
-                <button type="submit" name="update" class="btn btn-outline-success">Simpan</button>
+                <input type="hidden" name="id" value=<?php echo $data["id_orgtua"]; ?>>
+                <div class=" mb-3">
+                  <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Nama Ayah</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput1" name="namaayah" required autocomplete="off" value="<?= $data['nama_ayah'] ?>">
+                  </div>
+                  <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Nama Ibu</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput1" name="namaibu" required autocomplete="off" value="<?= $data['nama_ibu'] ?>">
+                  </div>
+                  <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Alamat</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput1" name="alamat" required autocomplete="off" value="<?= $data['alamat_orgtua'] ?>">
+                  </div>
+                  <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Penghasilan</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput1" name="penghasilan" required autocomplete="off" value="<?= $data['penghasilan'] ?>">
+                  </div>
+                  <button type="submit" name="update" class="btn btn-outline-success">Simpan</button>
               </form>
             </div>
           </div>

@@ -1,20 +1,23 @@
 <?php
 require_once "../../../functions.php";
+$id = $_GET["id"];
+$data = tabel("SELECT * FROM tbl_siswa WHERE id_siswa='$id'")[0];
 
-if(isset($_POST["simpan"])){
-  if(tambah_kelas($_POST) > 0){
+if (isset($_POST["update"])) {
+  if (verik($_POST) > 0) {
     echo "
-      <script>
-        alert('kelas berhasil di tambahkan');
-        document.location.href='view.php';    
-      </script>
-    ";
-  }else{
+        <script>
+                alert('Berhasil');
+                  document.location.href='view.php';
+         </script>
+            ";
+  } else {
     echo "
-    <script>
-      alert('gagal');
-    </script>
-    ";
+        <script>
+                alert('gagal);
+                  document.location.href='view.php';
+         </script>
+            ";
   }
 }
 
@@ -50,7 +53,7 @@ if(isset($_POST["simpan"])){
     <ul class="navbar-nav bg-gradient-success sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-laugh-wink"></i>
         </div>
@@ -62,7 +65,7 @@ if(isset($_POST["simpan"])){
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="../index.php">
+        <a class="nav-link" href="../../index.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
@@ -83,10 +86,10 @@ if(isset($_POST["simpan"])){
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="buttons.html">Table Calon Siswa</a>
-            <a class="collapse-item" href="cards.html">Table Orang Tua</a>
-            <a class="collapse-item" href="cards.html">Table Kelas</a>
-            <a class="collapse-item" href="cards.html">Table Ruangan</a>
+            <a class="collapse-item" href="view.php">Table Calon Siswa</a>
+            <a class="collapse-item" href="../orang tua/view.php">Table Orang Tua</a>
+            <a class="collapse-item" href="../kelas/view.php">Table Kelas</a>
+            <a class="collapse-item" href="../ruangan/view.php">Table Ruangan</a>
             <a class="collapse-item" href="cards.html">Table Informasi</a>
           </div>
         </div>
@@ -100,7 +103,7 @@ if(isset($_POST["simpan"])){
         </a>
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="utilities-other.html">Siswa</a>
+            <a class="collapse-item" href="view.php">Siswa</a>
           </div>
         </div>
       </li>
@@ -358,35 +361,101 @@ if(isset($_POST["simpan"])){
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <p>Form Tambah Kelas</p>
+              <p>Form Edit Data</p>
             </div>
             <div class="card-body">
               <form action="" method="post" enctype="multipart/form-data">
-                <div class=" mb-3">
-                  <label for="exampleFormControlInput1" class="form-label">Nama Kelas</label>
-                  <input type="text" class="form-control" id="exampleFormControlInput1" name="namakelas" required autocomplete="off" autocapitalize="on">
-                  <button type="submit" name="simpan" class="mt-3 btn btn-outline-success">Simpan</button>
+                <input type="hidden" name="id" value=<?php echo $data["id_siswa"]; ?>>
+                <div class="mb-3">
+                  <label for="exampleFormControlInput1" class="form-label">Nama Siswa</label>
+                  <input type="text" class="form-control" id="exampleFormControlInput1" name="namasiswa" required autocomplete="off" value="<?= $data['namasiswa'] ?>">
                 </div>
+                <div class=" mb-3">
+                  <label for="exampleFormControlInput1" class="form-label">No Pendaftaran</label>
+                  <input type="text" class="form-control" id="exampleFormControlInput1" name="nopen" required readonly value="<?= $data['nopen'] ?>">
+                  <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Status Regestrasi</label>
+                    <select name="reg" id="" class="form-control" required>
+                      <option value="<?= $data["statusreg"] ?>"><?= $data["statusreg"] ?></option>
+                      <?php if ($data["statusreg"] === 'Gagal') { ?>
+                        <option value="Berhasil">Berhasil</option>
+                      <?php } else {
+                      ?>
+                        <option value="Gagal">Gagal</option>
+                      <?php } ?>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class=" control-label" for="">Status Tes</label>
+                    <div class="">
+                      <select name="tes" id="" class="form-control" required>
+                        <option value="<?= $data["statustes"] ?>"><?= $data["statustes"] ?></option>
+                        <?php if ($data["statustes"] == "Belum") { ?>
+                          <option value="Lulus">Lulus</option>
+                          <option value="Gagal">Gagal</option>
+                        <?php } else if ($data["statustes"] == "Lulus") { ?>
+                          <option value="Belum">Belum</option>
+                          <option value="Gagal">Gagal</option>
+                        <?php } else { ?>
+                          <option value="Belum">Belum</option>
+                          <option value="Lulus">Lulus</option>
+                        <?php } ?>
+                      </select>
+                    </div>
+                    <div class="mb-3">
+                      <label for="exampleFormControlInput1" class="form-label">Status Daftar Ulang</label>
+                      <select name="daftarulang" id="" class="form-control" required>
+                        <option value="<?= $data["statusdaftarulang"] ?>"><?= $data["statusdaftarulang"] ?></option>
+                        <?php if ($data["statusdaftarulang"] == "Belum") { ?>
+                          <option value="Berhasil">Berhasil</option>
+                          <option value="Gagal">Gagal</option>
+                        <?php } else if ($data["statusdaftarulang"] == "Berhasil") { ?>
+                          <option value="Belum">Belum</option>
+                          <option value="Gagal">Gagal</option>
+                        <?php } else { ?>
+                          <option value="Belum">Belum</option>
+                          <option value="Lulus">Lulus</option>
+                        <?php } ?>
+                      </select>
+                    </div>
+                    <div class="mb-3">
+                      <label for="exampleFormControlInput1" class="form-label">Status Akhir</label>
+                      <select name="akhir" id="" class="form-control" required>
+                        <option value="<?= $data["statusakhir"] ?>"><?= $data["statusakhir"] ?></option>
+                        <?php if ($data["statusakhir"] == "Belum") { ?>
+                          <option value="Lulus">Lulus</option>
+                          <option value="Gagal">Gagal</option>
+                        <?php } else if ($data["statusakhir"] == "Lulus") { ?>
+                          <option value="Belum">Belum</option>
+                          <option value="Gagal">Gagal</option>
+                        <?php } else { ?>
+                          <option value="Belum">Belum</option>
+                          <option value="Lulus">Lulus</option>
+                        <?php } ?>
+                      </select>
+                    </div>
+
+                  </div>
+                  <button type="submit" name="update" class="btn btn-outline-success">Simpan</button>
               </form>
             </div>
           </div>
         </div>
-      </div>
 
-    </div>
-    <!-- /.container-fluid -->
-  </div>
-  <!-- End of Main Content -->
-
-  <!-- Footer -->
-  <footer class="sticky-footer bg-white">
-    <div class="container my-auto">
-      <div class="copyright text-center my-auto">
-        <span>Copyright &copy; Your Website 2021</span>
       </div>
+      <!-- /.container-fluid -->
     </div>
-  </footer>
-  <!-- End of Footer -->
+    <!-- End of Main Content -->
+
+    <!-- Footer -->
+    <footer class="sticky-footer bg-white">
+      <div class="container my-auto">
+        <div class="copyright text-center my-auto">
+          <span>Copyright &copy; Your Website 2021</span>
+        </div>
+      </div>
+    </footer>
+    <!-- End of Footer -->
 
   </div>
   <!-- End of Content Wrapper -->

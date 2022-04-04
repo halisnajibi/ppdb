@@ -1,6 +1,24 @@
 <?php
 require_once "../../../functions.php";
-$data = tabel("SELECT * FROM tbl_siswa");
+$semuakelas = tabel("SELECT * FROM tbl_kelas");
+$semuasiswa = tabel("SELECT * FROM tbl_siswa");
+if (isset($_POST["simpan"])) {
+  if (tambah_ruangan($_POST) > 0) {
+    echo "
+      <script>
+        alert('ruangan berhasil di tambahkan');
+        document.location.href='view.php';    
+      </script>
+    ";
+  } else {
+    echo "
+    <script>
+      alert('gagal');
+    </script>
+    ";
+  }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,9 +61,8 @@ $data = tabel("SELECT * FROM tbl_siswa");
       <!-- Divider -->
       <hr class="sidebar-divider my-0">
 
-      <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="../index.php">
+        <a class="nav-link" href="../../index.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
@@ -71,6 +88,19 @@ $data = tabel("SELECT * FROM tbl_siswa");
             <a class="collapse-item" href="../kelas/view.php">Table Kelas</a>
             <a class="collapse-item" href="../ruangan/view.php">Table Ruangan</a>
             <a class="collapse-item" href="cards.html">Table Informasi</a>
+          </div>
+        </div>
+      </li>
+
+      <!-- Nav Item - Utilities Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+          <i class="fa-solid fa-people-roof"></i>
+          <span>Verification</span>
+        </a>
+        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="../verifikasi/view.php">Siswa</a>
           </div>
         </div>
       </li>
@@ -341,72 +371,48 @@ $data = tabel("SELECT * FROM tbl_siswa");
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <p>Table Calon Siswa</p>
+              <p>Form Tambah Ruangan</p>
             </div>
             <div class="card-body">
-              <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  <thead>
-                    <tr>
-                      <th>No</th>
-                      <th>Nama</th>
-                      <th>No Pendaftaran</th>
-                      <th>Nisn</th>
-                      <th>Jenis Kelamin</th>
-                      <th>TTL</th>
-                      <th>Telepon</th>
-                      <th>Asal Sekolah</th>
-                      <th>Nilai</th>
-                      <th>Foto</th>
-                      <th>Aksi</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php $i = 1;
-                    foreach ($data as $satuan) :
-                    ?>
-                      <tr>
-                        <td><?php echo $i; ?></td>
-                        <td><?= $satuan["namasiswa"] ?> </td>
-                        <td><?= $satuan["nopen"] ?> </td>
-                        <td><?= $satuan["nisn"] ?> </td>
-                        <td><?= strtoupper($satuan["jk"])  ?> </td>
-                        <td><?= $satuan["tempat_lahir"] ?> <?= indotgl($satuan["tanggal_lahir"])  ?></td>
-                        <td><?= $satuan["telpon"] ?> </td>
-                        <td><?= $satuan["asalsekolah"] ?> </td>
-                        <td><?= $satuan["nilaiakhir"] ?> </td>
-                        <td><img src="../../user/img/<?= $satuan["foto"] ?>" alt="" width="50px"> </td>
-                        <td>
-                          <a href="editsiswa.php?id=<?= $satuan["id_siswa"] ?>" class="btn btn-outline-warning btn-sm mb-2">Edit</a>
-                          <a href="hapus.php?id=<?= $satuan["id_siswa"] ?>" class="btn btn-outline-danger btn-sm" onclick="return confirm('ingin menghapus data ini?')">Hapus</a>
-                        </td>
-                      </tr>
-                    <?php $i++;
-                    endforeach;
-                    ?>
-                  </tbody>
-                </table>
-              </div>
+              <form action="" method="post" enctype="multipart/form-data">
+                <div class="mb-3">
+                  <label for="exampleFormControlInput1" class="form-label">Nama Siswa</label>
+                  <select name="nama" id="" class="form-control" required>
+                    <?php foreach ($semuasiswa as $siswa) : ?>
+                      <option value="<?= $siswa["id_siswa"] ?>"><?= $siswa["namasiswa"] ?></option>
+                    <?php endforeach; ?>
+                  </select>
+                  <label for="exampleFormControlInput1" class="form-label">Kelas</label>
+                  <select name="kelas" id="" class="form-control" required>
+                    <?php foreach ($semuakelas as $kelas) : ?>
+                      <option value="<?= $kelas["id_kelas"] ?>"><?= strtoupper($kelas["kelas"])  ?></option>
+                    <?php endforeach; ?>
+                  </select>
+                  <button type="submit" name="simpan" class="btn btn-outline-success mt-3">Simpan</button>
+                </div>
+              </form>
             </div>
           </div>
-
         </div>
-        <!-- /.container-fluid -->
       </div>
-      <!-- End of Main Content -->
-
-      <!-- Footer -->
-      <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2021</span>
-          </div>
-        </div>
-      </footer>
-      <!-- End of Footer -->
 
     </div>
-    <!-- End of Content Wrapper -->
+    <!-- /.container-fluid -->
+  </div>
+  <!-- End of Main Content -->
+
+  <!-- Footer -->
+  <footer class="sticky-footer bg-white">
+    <div class="container my-auto">
+      <div class="copyright text-center my-auto">
+        <span>Copyright &copy; Your Website 2021</span>
+      </div>
+    </div>
+  </footer>
+  <!-- End of Footer -->
+
+  </div>
+  <!-- End of Content Wrapper -->
 
   </div>
   <!-- End of Page Wrapper -->

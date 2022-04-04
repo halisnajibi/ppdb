@@ -1,6 +1,6 @@
 <?php
 require_once "../../../functions.php";
-$data = tabel("SELECT * FROM tbl_kelas");
+$data = tabel("SELECT * FROM tbl_siswa");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -45,7 +45,7 @@ $data = tabel("SELECT * FROM tbl_kelas");
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="../index.php">
+        <a class="nav-link" href="../../index.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
@@ -66,10 +66,10 @@ $data = tabel("SELECT * FROM tbl_kelas");
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="../siswa/view.php">Table Calon Siswa</a>
-            <a class="collapse-item" href="view.php">Table Orang Tua</a>
-            <a class="collapse-item" href="cards.html">Table Kelas</a>
-            <a class="collapse-item" href="cards.html">Table Ruangan</a>
+            <a class="collapse-item" href="view.php">Table Calon Siswa</a>
+            <a class="collapse-item" href="../orang tua/view.php">Table Orang Tua</a>
+            <a class="collapse-item" href="../kelas/view.php">Table Kelas</a>
+            <a class="collapse-item" href="../ruangan/view.php">Table Ruangan</a>
             <a class="collapse-item" href="cards.html">Table Informasi</a>
           </div>
         </div>
@@ -83,10 +83,11 @@ $data = tabel("SELECT * FROM tbl_kelas");
         </a>
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="utilities-other.html">Siswa</a>
+            <a class="collapse-item" href="view.php">Siswa</a>
           </div>
         </div>
       </li>
+
 
       <!-- Divider -->
       <hr class="sidebar-divider">
@@ -341,10 +342,7 @@ $data = tabel("SELECT * FROM tbl_kelas");
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <p>Table Kelas</p>
-              <a href="tambah.php">
-                <button type="submit" class="btn btn-outline-success btn-sm mb-2">Tambah Kelas</button>
-              </a>
+              <p>Table Verifikasi Data Calon Siswa</p>
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -352,7 +350,14 @@ $data = tabel("SELECT * FROM tbl_kelas");
                   <thead>
                     <tr>
                       <th>No</th>
-                      <th>Kelas</th>
+                      <th>Nama</th>
+                      <th>No Pendaftaran</th>
+                      <th>Status Regestrasi</th>
+                      <th>Status Tes</th>
+                      <th>Status Daftar Ulang</th>
+                      <th>Tanggal Daftar Ulang</th>
+                      <th>Berkas</th>
+                      <th>Status Akhir</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>
@@ -362,9 +367,16 @@ $data = tabel("SELECT * FROM tbl_kelas");
                     ?>
                       <tr>
                         <td><?php echo $i; ?></td>
-                        <td><?= strtoupper( $satuan["kelas"]) ?> </td>
+                        <td><?= $satuan["namasiswa"] ?> </td>
+                        <td><?= $satuan["nopen"] ?> </td>
+                        <td><?= $satuan["statusreg"] ?> </td>
+                        <td><?= $satuan["statustes"] ?> </td>
+                        <td><?= $satuan["statusdaftarulang"] ?></td>
+                        <td><?= $satuan["tgl_daftarulang"] ?></td>
+                        <td><a href="../../../user/apps/user/berkas/<?= $satuan["uplod"] ?>"><?= $satuan["uplod"] ?></a></td>
+                        <td><?= $satuan["statusakhir"] ?> </td>
                         <td>
-                          <a href="hapus.php?id=<?= $satuan["id_kelas"] ?>" class="btn btn-outline-danger btn-sm mb-2" onclick="return confirm('yakin untuk menghapus kelas')">Hapus</a>
+                          <a href="verifik.php?id=<?= $satuan["id_siswa"] ?>" class="btn btn-outline-warning btn-sm mb-2">Edit</a>
                         </td>
                       </tr>
                     <?php $i++;

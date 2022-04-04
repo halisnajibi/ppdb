@@ -1,6 +1,6 @@
 <?php
 require_once "../../../functions.php";
-$data = tabel("SELECT * FROM tbl_orangtua INNER JOIN tbl_siswa ON tbl_orangtua.id_siswa=tbl_siswa.id_siswa");
+$data = tabel("SELECT * FROM tbl_siswa");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,7 +33,7 @@ $data = tabel("SELECT * FROM tbl_orangtua INNER JOIN tbl_siswa ON tbl_orangtua.i
     <ul class="navbar-nav bg-gradient-success sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="../../index.php">
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-laugh-wink"></i>
         </div>
@@ -45,7 +45,7 @@ $data = tabel("SELECT * FROM tbl_orangtua INNER JOIN tbl_siswa ON tbl_orangtua.i
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="../index.php">
+        <a class="nav-link" href="../../index.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
@@ -66,9 +66,9 @@ $data = tabel("SELECT * FROM tbl_orangtua INNER JOIN tbl_siswa ON tbl_orangtua.i
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="../siswa/view.php">Table Calon Siswa</a>
-            <a class="collapse-item" href="view.php">Table Orang Tua</a>
-            <a class="collapse-item" href="../orang tua/view.php">Table Kelas</a>
+            <a class="collapse-item" href="view.php">Table Calon Siswa</a>
+            <a class="collapse-item" href="../orang tua/view.php">Table Orang Tua</a>
+            <a class="collapse-item" href="../kelas/view.php">Table Kelas</a>
             <a class="collapse-item" href="../ruangan/view.php">Table Ruangan</a>
             <a class="collapse-item" href="cards.html">Table Informasi</a>
           </div>
@@ -83,7 +83,7 @@ $data = tabel("SELECT * FROM tbl_orangtua INNER JOIN tbl_siswa ON tbl_orangtua.i
         </a>
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="utilities-other.html">Siswa</a>
+            <a class="collapse-item" href="../verifikasi/view.php">Siswa</a>
           </div>
         </div>
       </li>
@@ -341,7 +341,7 @@ $data = tabel("SELECT * FROM tbl_orangtua INNER JOIN tbl_siswa ON tbl_orangtua.i
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <p>Table Orang Tua Calon Siswa</p>
+              <p>Table Calon Siswa</p>
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -349,11 +349,15 @@ $data = tabel("SELECT * FROM tbl_orangtua INNER JOIN tbl_siswa ON tbl_orangtua.i
                   <thead>
                     <tr>
                       <th>No</th>
-                      <th>Nama Siswa</th>
-                      <th>Nama Ayah</th>
-                      <th>Nama Ibu</th>
-                      <th>Alamat</th>
-                      <th>Penghasilan</th>
+                      <th>Nama</th>
+                      <th>No Pendaftaran</th>
+                      <th>Nisn</th>
+                      <th>Jenis Kelamin</th>
+                      <th>TTL</th>
+                      <th>Telepon</th>
+                      <th>Asal Sekolah</th>
+                      <th>Nilai</th>
+                      <th>Foto</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>
@@ -364,12 +368,17 @@ $data = tabel("SELECT * FROM tbl_orangtua INNER JOIN tbl_siswa ON tbl_orangtua.i
                       <tr>
                         <td><?php echo $i; ?></td>
                         <td><?= $satuan["namasiswa"] ?> </td>
-                        <td><?= $satuan["nama_ayah"] ?> </td>
-                        <td><?= $satuan["nama_ibu"] ?> </td>
-                        <td><?= $satuan["alamat_orgtua"] ?> </td>
-                        <td><?= $satuan["penghasilan"] ?></td>
+                        <td><?= $satuan["nopen"] ?> </td>
+                        <td><?= $satuan["nisn"] ?> </td>
+                        <td><?= strtoupper($satuan["jk"])  ?> </td>
+                        <td><?= $satuan["tempat_lahir"] ?> <?= indotgl($satuan["tanggal_lahir"])  ?></td>
+                        <td><?= $satuan["telpon"] ?> </td>
+                        <td><?= $satuan["asalsekolah"] ?> </td>
+                        <td><?= $satuan["nilaiakhir"] ?> </td>
+                        <td><img src="../../../user/apps/user/img/<?= $satuan["foto"] ?>" alt="" width="50px"> </td>
                         <td>
-                          <a href="edit.php?id=<?= $satuan["id_orgtua"] ?>" class="btn btn-outline-warning btn-sm mb-2">Edit</a>
+                          <a href="editsiswa.php?id=<?= $satuan["id_siswa"] ?>" class="btn btn-outline-warning btn-sm mb-2">Edit</a>
+                          <a href="hapus.php?id=<?= $satuan["id_siswa"] ?>" class="btn btn-outline-danger btn-sm" onclick="return confirm('ingin menghapus data ini?')">Hapus</a>
                         </td>
                       </tr>
                     <?php $i++;
