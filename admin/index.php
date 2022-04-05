@@ -1,3 +1,16 @@
+<?php
+require "../functions.php";
+$semuasiswa = mysqli_query($conn, "SELECT * FROM tbl_siswa");
+$jumlahsiswa = mysqli_num_rows($semuasiswa);
+$semuaorg = mysqli_query($conn, "SELECT * FROM tbl_orangtua");
+$jumlahorg = mysqli_num_rows($semuaorg);
+$semuakelas = mysqli_query($conn, "SELECT * FROM tbl_kelas");
+$jumlahkelas = mysqli_num_rows($semuakelas);
+$semuaruangan = mysqli_query($conn, "SELECT * FROM tbl_ruangan");
+$jumlahruangan = mysqli_num_rows($semuaruangan);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,7 +30,7 @@
 
   <!-- Custom styles for this template-->
   <link href="assets_admin/css/sb-admin-2.min.css" rel="stylesheet">
-
+  <link href="assets_admin/css/style.css" rel="stylesheet">
 </head>
 
 <body id="page-top">
@@ -30,10 +43,10 @@
 
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
-        <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-laugh-wink"></i>
+        <div class="sidebar-brand-icon">
+          <img src="../admin/assets_admin/img/Group 1 (1).png" alt="" width="30px">
         </div>
-        <div class="sidebar-brand-text mx-3">Hello..</div>
+        <p class="sidase sidebar-brand-text mx-3">SIDASE<span class="p">P</span></p>
       </a>
 
       <!-- Divider -->
@@ -111,9 +124,11 @@
           </button>
 
           <!-- Topbar Search -->
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit deleniti mollitia saepe consequuntur iste animi veritatis eveniet, quaerat nobis, atque, possimus pariatur odit ipsa debitis reiciendis voluptatem sint cum dolorem.
-          </p>
+          <div class="row">
+            <div class="col">
+              <h3 class="sidasep">Sistem Informasi Data Sekolah PPDB</h3>
+            </div>
+          </div>
 
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
@@ -148,8 +163,8 @@
 
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h3 class="h3 mb-0 text-gray-800">Selamat Datang Admin</h3>
-            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+            <h5 class="h5 mb-0 text-gray-800">Selamat Datang Admin</h5>
+            <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
           </div>
           <!-- Content Row -->
           <div class="row">
@@ -162,10 +177,10 @@
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                         Jumlah Calon Siswa</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $jumlahsiswa; ?></div>
                     </div>
                     <div class="col-auto">
-                      <i class="fa-solid fa-graduation-cap text-gray-300" width="100px"></i>
+                      <i class="fa-solid fa-graduation-cap text-gray-300 fa-xl" width="100px"></i>
                     </div>
                   </div>
                 </div>
@@ -180,10 +195,10 @@
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                         Jumlah Orang Tua Calon Siswa</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $jumlahorg; ?></div>
                     </div>
                     <div class="col-auto">
-                      <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                      <i class="fas fa-clipboard-list fa-2x text-gray-300 fa-xl"></i>
                     </div>
                   </div>
                 </div>
@@ -200,17 +215,13 @@
                       </div>
                       <div class="row no-gutters align-items-center">
                         <div class="col-auto">
-                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
+                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?= $jumlahkelas; ?></div>
                         </div>
-                        <div class="col">
-                          <div class="progress progress-sm mr-2">
-                            <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
-                        </div>
+                       
                       </div>
                     </div>
                     <div class="col-auto">
-                      <i class="fa-duotone fa-screen-users"></i>
+                      <i class="fa-solid fa-users text-gray-300 fa-xl"></i>
                     </div>
                   </div>
                 </div>
@@ -225,10 +236,10 @@
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                         Jumlah Ruangan</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $jumlahruangan; ?></div>
                     </div>
                     <div class="col-auto">
-                      <i class="fa-solid fa-door-open text-gray-300"></i>
+                      <i class="fa-solid fa-door-open text-gray-300 fa-xl"></i>
                     </div>
                   </div>
                 </div>

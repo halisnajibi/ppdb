@@ -1,0 +1,21 @@
+.sidase{
+  color: #4E73DF;
+  margin-top: 50px;
+}
+
+.p{
+  color: #F7C649;
+}
+
+@media screen AND (max-width:750px) {
+  .sidasep{
+    font-size: 16px;
+  }
+}
+
+@media screen AND (min-width:760px) {
+  .sidasep{
+    font-size: 20px;
+  }
+}
+ 

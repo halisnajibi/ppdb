@@ -34,12 +34,12 @@ if (isset($_POST["simpan"])) {
   <title>Halaman Admin</title>
 
   <!-- Custom fonts for this template-->
-  <link href="../../../assets_admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="../../assets_admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-  <link href="../../../assets_admin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+  <link href="../../assets_admin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
   <!-- Custom styles for this template-->
-  <link href="../../../assets_admin/css/sb-admin-2.min.css" rel="stylesheet">
-
+  <link href="../../assets_admin/css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="../../assets_admin/css/style.css" rel="stylesheet">
 </head>
 
 <body id="page-top">
@@ -51,11 +51,11 @@ if (isset($_POST["simpan"])) {
     <ul class="navbar-nav bg-gradient-success sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-        <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-laugh-wink"></i>
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
+        <div class="sidebar-brand-icon">
+          <img src="../../assets_admin/img/Group 1 (1).png" alt="" width="30px">
         </div>
-        <div class="sidebar-brand-text mx-3">Hello..</div>
+        <p class="sidase sidebar-brand-text mx-3">SIDASE<span class="p">P</span></p>
       </a>
 
       <!-- Divider -->
