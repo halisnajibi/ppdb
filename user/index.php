@@ -119,7 +119,7 @@ $kelas = mysqli_fetch_assoc($semuaruangan);
               <p class="lulus">Silahkan masuk ke halaman informasi untuk membaca tahapan PPDB selajutnya atur profiel kalian dengan klik icon orang ,lalu <a href="apps/user/cetak.php?c=<?php echo $peg['nisn'] ?>" target="_blank">download</a> kartu ujian</p>
             <?php } else { ?>
               <p class="lulus">Selamat anda bisa melanjutkan ketahap berikutnya karena di nyatakan lulus tes..</p>
-              <p class="lulus">Silahkan daftar ulang pada link ini <a href="apps/user/daftarulang.php?nisn=<?php echo $peg['nisn'] ?>" class="daftar_ulang">daftar</a> Sebelum daftar ulang silahkan baca informasi di bagian icon Informasi =</p>
+              <p class="lulus">Silahkan daftar ulang pada link ini <a href="apps/user/daftarulang.php?nisn=<?php echo $peg['nisn'] ?>" class="daftar_ulang">daftar</a> Sebelum daftar ulang silahkan baca informasi di bagian icon Informasi</p>
             <?php } ?>
           <?php } else if ($peg["statusdaftarulang"] == 'Berhasil' && $peg["statusakhir"] == 'Belum') { ?>
             <p class="lulus">Selamat daftar ulang anda berhasil silahkan tunggu hasil akhir..</p>
