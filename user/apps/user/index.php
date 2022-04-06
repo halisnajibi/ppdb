@@ -1,11 +1,11 @@
 <?php
 session_start();
-
+require "../../../functions.php";
 // cek apakah user telah login, jika belum login maka di alihkan ke halaman login
 if ($_SESSION['status'] != "login") {
   header("location:../login/login.php");
 }
-require "../../functions.php";
+
 $tampilPeg    = mysqli_query($conn, "SELECT * FROM tbl_siswa WHERE nopen='$_SESSION[nopen]'");
 $peg    = mysqli_fetch_array($tampilPeg);
 ?>
@@ -18,7 +18,7 @@ $peg    = mysqli_fetch_array($tampilPeg);
   <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png">
   <!-- <link rel="icon" type="image/png" href="./assets/img/favicon.png"> -->
   <title>
-    ayo sekolah
+    SMP HARAPAN BANUA
   </title>
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />

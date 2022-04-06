@@ -1,11 +1,11 @@
 <?php
 session_start();
-
+require "../../../functions.php";
 // cek apakah user telah login, jika belum login maka di alihkan ke halaman login
 if ($_SESSION['status'] != "login") {
   header("location:../login/login.php");
 }
-require "../../functions.php";
+
 $nisn = $_GET["e"];
 $tampil = tabel("SELECT * FROM tbl_siswa WHERE nisn=$nisn")[0];
 
@@ -36,7 +36,7 @@ if (isset($_POST["simpan"])) {
   <link rel="apple-touch-icon" sizes="76x76" href="../../assets/img/apple-icon.png">
   <!-- <link rel="icon" type="image/png" href="./assets/img/favicon.png"> -->
   <title>
-    ayo sekolah
+    SMP HARAPAN BANUA
   </title>
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
@@ -131,7 +131,7 @@ if (isset($_POST["simpan"])) {
             <input type="date" class="form-control" name="tgl_lahir" placeholder="Tanggal Lahir" autocomplete="off">
           </div>
           <div class="input-group input-group-outline mb-3">
-            <input type="text" class="form-control" name="jk" placeholder="Jenis Kelamin" autocomplete="off">
+            <input type="text" class="form-control" name="jk" placeholder="Jenis Kelamin" autocomplete="off" maxlength="1">
           </div>
           <div class="input-group input-group-outline mb-3">
             <label class="upload">Upload Foto :</label><span class="max">Max 5Mb</span>

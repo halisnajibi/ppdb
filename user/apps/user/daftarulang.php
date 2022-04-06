@@ -1,11 +1,11 @@
 <?php
 session_start();
-
+require "../../../functions.php";
 // cek apakah user telah login, jika belum login maka di alihkan ke halaman login
 if ($_SESSION['status'] != "login") {
   header("location:../login/login.php");
 }
-require "../../functions.php";
+
 $tampilPeg    = mysqli_query($conn, "SELECT * FROM tbl_siswa WHERE nopen='$_SESSION[nopen]'");
 $peg    = mysqli_fetch_array($tampilPeg);
 
@@ -37,7 +37,7 @@ if (isset($_POST["simpan"])) {
   <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png">
   <!-- <link rel="icon" type="image/png" href="./assets/img/favicon.png"> -->
   <title>
-    ayo sekolah
+    SMP HARAPAN BANUA
   </title>
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
@@ -60,7 +60,7 @@ if (isset($_POST["simpan"])) {
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
       <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/material-dashboard/pages/dashboard " target="_blank">
-        <img src="./assets/img/logo-ct.png" class="navbar-brand-img h-100" alt="main_logo">
+        <img src="../../assets/img/logo-smp.png" class="navbar-brand-img h-100" alt="main_logo">
         <span class="ms-1 font-weight-bold text-white">SMA Harapan Banua</span>
       </a>
     </div>

@@ -95,3 +95,12 @@ footer{
   border-radius: 5px;
   color: white;
 }
+
+.link-login{
+  color: blue;
+  text-decoration: solid;
+}
+
+.sig-up{
+  background-color: white;
+}

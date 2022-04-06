@@ -5,7 +5,7 @@ session_start();
 if ($_SESSION['status'] != "login") {
   header("location:apps/login/login.php");
 }
-require "functions.php";
+require "../functions.php";
 $tampilPeg    = mysqli_query($conn, "SELECT * FROM tbl_siswa WHERE nopen='$_SESSION[nopen]'");
 $peg    = mysqli_fetch_array($tampilPeg);
 $siswa = $peg["id_siswa"];
@@ -22,7 +22,7 @@ $kelas = mysqli_fetch_assoc($semuaruangan);
   <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png">
   <!-- <link rel="icon" type="image/png" href="./assets/img/favicon.png"> -->
   <title>
-    ayo sekolah
+    SMP HARAPAN BANUA
   </title>
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
@@ -82,7 +82,7 @@ $kelas = mysqli_fetch_assoc($semuaruangan);
             <h6 class="font-weight-bolder mb-0">Dashboard</h6>
           </ol>
 
-          <h6 class="nama">selamat datang <?php echo $peg["namasiswa"] ?> </h6>
+          <h6 class="nama">Selamat Datang <?php echo $peg["namasiswa"] ?> </h6>
         </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
           <div class="ms-md-auto pe-md-3 d-flex align-items-center">
@@ -126,8 +126,12 @@ $kelas = mysqli_fetch_assoc($semuaruangan);
           <?php } else if ($peg["statusdaftarulang"] == 'Berhasil' && $peg["statusakhir"] == 'Lulus') { ?>
             <p class="lulus">Selamat anda di nyatakan lulus di SMP Harapan Banua Di Kelas <?php echo strtoupper($kelas["kelas"])  ?>..</p>
             <p class="lulus">Silahkan datang kesekolahan untuk konfirmasi dan membayar daftar ulang</p>
+          <?php } else { ?>
+            <p class="tidak_lulus">Mohon maaf anda tidak di terima di SMP HARAPAN BANUA..</p>
+            <p class="lulus">Tetap Semangatt!!</p>
           <?php } ?>
         <?php } ?>
+
         <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
           <div class="card">
             <div class="card-header p-3 pt-2">
@@ -263,7 +267,11 @@ $kelas = mysqli_fetch_assoc($semuaruangan);
                 <td>
                   <div class="d-flex px-2 py-1">
                     <div>
-                      <img src="apps/user/img/<?php echo $peg["foto"] ?>" class="avatar avatar-sm me-3 border-radius-lg" alt=" <?php echo $peg["namasiswa"] ?>">
+                      <?php if ($peg["foto"] == NULL) { ?>
+                        <img src="assets/img/icondefault.png" alt="" class="avatar avatar-sm me-3 border-radius-lg">
+                      <?php } else {  ?>
+                        <img src="apps/user/img/<?php echo $peg["foto"] ?>" class="avatar avatar-sm me-3 border-radius-lg" alt=" <?php echo $peg["namasiswa"] ?>">
+                      <?php } ?>
                     </div>
                     <div class="d-flex flex-column justify-content-center">
                       <h6 class="mb-0 text-sm"> <?php echo $peg["namasiswa"] ?></h6>

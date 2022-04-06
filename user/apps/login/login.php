@@ -4,7 +4,7 @@ session_start();
 //   header("Location:../../index.php");
 //   exit;
 // }
-require "../../functions.php";
+require "../../../functions.php";
 //ambil data yang dikirm
 if (isset($_POST["login"])) {
   $username = $_POST["username"];
