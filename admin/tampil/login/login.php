@@ -1,6 +1,7 @@
 <?php
 require "../../../functions.php";
 session_start();
+
 if (isset($_POST["login"])) {
   $email = $_POST["email"];
   $pass = $_POST["pass"];
@@ -13,6 +14,7 @@ if (isset($_POST["login"])) {
   //membuat session
   if ($cek > 0) {
     $_SESSION["login"] = $login;
+    $_SESSION["status"] = "status";
     echo "
       <script>
         alert(login berhasil);

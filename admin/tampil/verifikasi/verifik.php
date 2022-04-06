@@ -1,5 +1,11 @@
 <?php
 require_once "../../../functions.php";
+session_start();
+
+// cek apakah user telah login, jika belum login maka di alihkan ke halaman login
+if ($_SESSION['status'] != "status") {
+  header("location:../login/login.php");
+}
 $id = $_GET["id"];
 $data = tabel("SELECT * FROM tbl_siswa WHERE id_siswa='$id'")[0];
 
@@ -55,7 +61,7 @@ if (isset($_POST["update"])) {
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
         <div class="sidebar-brand-icon">
-          <img src="../../assets_admin/img/Group 1 (1).png" alt="" width="30px">
+          <img src="../../assets_admin/img/sp.png" alt="" width="30px">
         </div>
         <p class="sidase sidebar-brand-text mx-3">SIDASE<span class="p">P</span></p>
       </a>
@@ -150,8 +156,8 @@ if (isset($_POST["update"])) {
             <div class="topbar-divider d-none d-sm-block"></div>
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Halis Najibi</span>
+                <img class="img-profile rounded-circle" src="../../assets_admin/img/tamara-gore-aMBAk29Jw9k-unsplash.jpg">
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -160,7 +166,7 @@ if (isset($_POST["update"])) {
                   Profile
                 </a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                <a class="dropdown-item" href="../admin/tampil/login/logout.php">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                   Logout
                 </a>

@@ -1,5 +1,11 @@
 <?php
 require "../functions.php";
+session_start();
+
+// cek apakah user telah login, jika belum login maka di alihkan ke halaman login
+if ($_SESSION['status'] != "status") {
+  header("location:tampil/login/login.php");
+}
 $semuasiswa = mysqli_query($conn, "SELECT * FROM tbl_siswa");
 $jumlahsiswa = mysqli_num_rows($semuasiswa);
 $semuaorg = mysqli_query($conn, "SELECT * FROM tbl_orangtua");
@@ -44,7 +50,7 @@ $jumlahruangan = mysqli_num_rows($semuaruangan);
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
         <div class="sidebar-brand-icon">
-          <img src="../admin/assets_admin/img/Group 1 (1).png" alt="" width="30px">
+          <img src="../admin/assets_admin/img/sp.png" alt="" width="30px">
         </div>
         <p class="sidase sidebar-brand-text mx-3">SIDASE<span class="p">P</span></p>
       </a>
@@ -136,8 +142,8 @@ $jumlahruangan = mysqli_num_rows($semuaruangan);
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Halis Najibi</span>
+                <img class="img-profile rounded-circle" src="../admin/assets_admin/img/tamara-gore-aMBAk29Jw9k-unsplash.jpg">
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -217,7 +223,7 @@ $jumlahruangan = mysqli_num_rows($semuaruangan);
                         <div class="col-auto">
                           <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?= $jumlahkelas; ?></div>
                         </div>
-                       
+
                       </div>
                     </div>
                     <div class="col-auto">
